@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "secproj",
+  "version": "${version}",
+  "name": "Security Project",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": ["Me!"],
+  "contact": {
+    "homepage": "https://kevinh.dev/",
+    "sources": "https://github.com/kevinh-e/sec-proj"
+  },
+  "license": "Apache-2.0",
+  "icon": "assets/secproj/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["dev.kevinh.secproj.SecurityProject"],
+    "fabric-datagen": ["dev.kevinh.secproj.SecurityProjectDataGenerator"],
+    "client": ["dev.kevinh.secproj.SecurityProjectClient"]
+  },
+  "mixins": ["secproj.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~1.21",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
+
