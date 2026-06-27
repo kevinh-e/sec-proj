@@ -7,6 +7,7 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import dev.kevinh.secproj.block.ModBlocks;
 import dev.kevinh.secproj.item.ModItems;
 
 public class SecurityProject implements ModInitializer {
@@ -16,6 +17,7 @@ public class SecurityProject implements ModInitializer {
   @Override
   public void onInitialize() {
     ModItems.registerModItems();
+    ModBlocks.registerModBlocks();
   }
 
   public static Identifier id(String path) {
