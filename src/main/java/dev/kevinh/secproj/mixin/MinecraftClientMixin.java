@@ -14,10 +14,15 @@ import net.minecraft.client.option.KeyBinding;
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
 
+  @Shadow
+  private boolean doAttack() {
+    throw new AssertionError();
+  }
+
   @Inject(method = "handleInputEvents", at = @At("HEAD"))
   private void leftClick(CallbackInfo info) {
     if (SecurityProjectClient.autoClickerEnabled) {
-      ((MinecraftClient)(Object)this).mouse.was;
+      this.doAttack();
     }
   }
 
