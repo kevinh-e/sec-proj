@@ -13,7 +13,7 @@ public class SecurityProjectClient implements ClientModInitializer {
   private final MinecraftClient client = MinecraftClient.getInstance();
   private boolean leftMouseWasClicked = false;
   private boolean rightMouseWasClicked = false;
-  // private boolean autoClickerEnabled = false;
+  public static boolean autoClickerEnabled = false;
 
   @Override
   public void onInitializeClient() {
@@ -27,13 +27,12 @@ public class SecurityProjectClient implements ClientModInitializer {
   }
 
   private void fetchTickEvents(DrawContext context, RenderTickCounter tickDeltaManager) {
-    // if (this.client.mouse.wasRightButtonClicked()) {
-    // rightMouseWasClicked = true;
-    // } else if (rightMouseWasClicked &&
-    // !this.client.mouse.wasRightButtonClicked()) {
-    // rightMouseWasClicked = false;
-    // autoClickerEnabled = !autoClickerEnabled;
-    // }
+    if (this.client.mouse.wasRightButtonClicked()) {
+      rightMouseWasClicked = true;
+    } else if (rightMouseWasClicked && !this.client.mouse.wasRightButtonClicked()) {
+      rightMouseWasClicked = false;
+      autoClickerEnabled = !autoClickerEnabled;
+    }
 
     if (this.client.mouse.wasLeftButtonClicked()) {
       leftMouseWasClicked = true;
@@ -41,16 +40,11 @@ public class SecurityProjectClient implements ClientModInitializer {
       clickQueue.addEventNow();
       leftMouseWasClicked = false;
     }
-
-    // if (autoClickerEnabled) {
-    // if (this.client.mouse.wasLeftButtonClicked()) {
-    // this.client.mouse.wasLeftButtonClicked() = false;
-    // }
-    // }
   }
 
   private void renderCPS(DrawContext context, RenderTickCounter tickDeltaManager) {
     TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-    context.drawText(textRenderer, "CPS " + clickQueue.size(), 10, 200, 0xFFFFFFFF, false);
+    context.drawText(textRenderer, "CPS " + clickQueue.size(), 10, 250, 0xFFFFFFFF, false);
+    context.drawText(textRenderer, "Auto Clicker Enabled: " + autoClickerEnabled, 10, 200, 0xFFFFFFFF, false);
   }
 }
