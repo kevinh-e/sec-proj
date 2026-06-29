@@ -1,7 +1,6 @@
 package dev.kevinh.secproj;
 
 import net.fabricmc.api.ModInitializer;
-
 import net.minecraft.util.Identifier;
 
 import org.slf4j.Logger;
@@ -18,6 +17,7 @@ public class SecurityProject implements ModInitializer {
   public void onInitialize() {
     ModItems.registerModItems();
     ModBlocks.registerModBlocks();
+
   }
 
   public static Identifier id(String path) {
