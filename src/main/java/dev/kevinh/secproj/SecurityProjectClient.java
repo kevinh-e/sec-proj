@@ -44,7 +44,7 @@ public class SecurityProjectClient implements ClientModInitializer {
 
   private void renderCPS(DrawContext context, RenderTickCounter tickDeltaManager) {
     TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-    context.drawText(textRenderer, "CPS " + clickQueue.size(), 10, 250, 0xFFFFFFFF, false);
-    context.drawText(textRenderer, "Auto Clicker Enabled: " + autoClickerEnabled, 10, 200, 0xFFFFFFFF, false);
+    context.drawText(textRenderer, "CPS " + clickQueue.size(), 10, 160, 0xFFFFFFFF, false);
+    context.drawText(textRenderer, "Auto Clicker Enabled: " + autoClickerEnabled, 10, 180, 0xFFFFFFFF, false);
   }
 }
