@@ -11,7 +11,7 @@ import net.minecraft.client.gui.screen.SplashTextRenderer;
 import net.minecraft.client.gui.screen.TitleScreen;
 
 @Mixin(TitleScreen.class)
-public class TitleMixin {
+public class TitleScreenMixin {
   @Shadow
   private SplashTextRenderer splashText;
 

@@ -2,7 +2,7 @@
   "required": true,
   "package": "dev.kevinh.secproj.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": ["ExampleMixin", "TitleMixin", "JumpMixin"],
+  "mixins": ["TitleScreenMixin", "PlayerEntityMixin", "MinecraftClientMixin"],
   "injectors": {
     "defaultRequire": 1
   },

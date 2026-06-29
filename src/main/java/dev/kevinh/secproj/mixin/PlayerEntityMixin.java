@@ -13,7 +13,7 @@ import net.minecraft.stat.StatHandler;
 import net.minecraft.stat.Stats;
 
 @Mixin(PlayerEntity.class)
-public class JumpMixin {
+public class PlayerEntityMixin {
 
   @Inject(method = "jump", at = @At("TAIL"))
   private void injectJump(CallbackInfo info) {
