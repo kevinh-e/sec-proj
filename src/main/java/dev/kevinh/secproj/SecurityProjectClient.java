@@ -11,6 +11,9 @@ import net.minecraft.client.render.RenderTickCounter;
 public class SecurityProjectClient implements ClientModInitializer {
   public static final TimedQueue clickQueue = new TimedQueue();
   private final MinecraftClient client = MinecraftClient.getInstance();
+  private boolean leftMouseWasClicked = false;
+  private boolean rightMouseWasClicked = false;
+  // private boolean autoClickerEnabled = false;
 
   @Override
   public void onInitializeClient() {
@@ -24,9 +27,26 @@ public class SecurityProjectClient implements ClientModInitializer {
   }
 
   private void fetchTickEvents(DrawContext context, RenderTickCounter tickDeltaManager) {
-    if (this.client.options.attackKey.wasPressed()) {
+    // if (this.client.mouse.wasRightButtonClicked()) {
+    // rightMouseWasClicked = true;
+    // } else if (rightMouseWasClicked &&
+    // !this.client.mouse.wasRightButtonClicked()) {
+    // rightMouseWasClicked = false;
+    // autoClickerEnabled = !autoClickerEnabled;
+    // }
+
+    if (this.client.mouse.wasLeftButtonClicked()) {
+      leftMouseWasClicked = true;
+    } else if (leftMouseWasClicked && !this.client.mouse.wasLeftButtonClicked()) {
       clickQueue.addEventNow();
+      leftMouseWasClicked = false;
     }
+
+    // if (autoClickerEnabled) {
+    // if (this.client.mouse.wasLeftButtonClicked()) {
+    // this.client.mouse.wasLeftButtonClicked() = false;
+    // }
+    // }
   }
 
   private void renderCPS(DrawContext context, RenderTickCounter tickDeltaManager) {
