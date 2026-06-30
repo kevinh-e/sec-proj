@@ -14,6 +14,8 @@ public class SecurityProjectClient implements ClientModInitializer {
   private boolean leftMouseWasClicked = false;
   private boolean rightMouseWasClicked = false;
   public static boolean autoClickerEnabled = false;
+  private static final int TEXT_COLOUR = 0xFFFFFFFF;
+  private static final int PADDING_SIZE = 5;
 
   @Override
   public void onInitializeClient() {
@@ -22,7 +24,7 @@ public class SecurityProjectClient implements ClientModInitializer {
     // draw shi
     HudRenderCallback.EVENT.register((context, tickDeltaManager) -> {
       fetchTickEvents(context, tickDeltaManager);
-      renderCPS(context, tickDeltaManager);
+      renderOverlay(context, tickDeltaManager);
     });
   }
 
@@ -42,9 +44,20 @@ public class SecurityProjectClient implements ClientModInitializer {
     }
   }
 
-  private void renderCPS(DrawContext context, RenderTickCounter tickDeltaManager) {
+  private void renderOverlay(DrawContext context, RenderTickCounter tickDeltaManager) {
+    String cpsCopy = "CPS " + clickQueue.size();
+    String autoClickerCopy = "AutoClicker " + (autoClickerEnabled ? "enabled" : "disabled");
+
     TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-    context.drawText(textRenderer, "CPS " + clickQueue.size(), 10, 160, 0xFFFFFFFF, false);
-    context.drawText(textRenderer, "Auto Clicker Enabled: " + autoClickerEnabled, 10, 180, 0xFFFFFFFF, false);
+    int textWidth = Math.max(textRenderer.getWidth(cpsCopy), textRenderer.getWidth(autoClickerCopy));
+    int textHeight = textRenderer.fontHeight + PADDING_SIZE;
+
+    // Background
+    context.fill(5, 155, textWidth + 3 * PADDING_SIZE, 155 + 2 * (textHeight + PADDING_SIZE), 0, 0xBF3A3632);
+    context.drawBorder(5, 155, textWidth + 2 * PADDING_SIZE, 2 * (textHeight + PADDING_SIZE), 0xBF57534E);
+
+    // Text
+    context.drawText(textRenderer, cpsCopy, 10, 160, TEXT_COLOUR, false);
+    context.drawText(textRenderer, autoClickerCopy, 10, 160 + PADDING_SIZE + textHeight, TEXT_COLOUR, false);
   }
 }
