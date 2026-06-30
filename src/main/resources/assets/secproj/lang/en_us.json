@@ -1,5 +1,6 @@
 {
   "item.secproj.example_item": "Example Item",
   "item.secproj.pink_garnet": "Pink Garnet",
-  "item.secproj.raw_pink_garnet": "Raw Pink Garnet"
+  "item.secproj.raw_pink_garnet": "Raw Pink Garnet",
+  "gui.secproj.menu_screen": "Secproj Menu"
 }
