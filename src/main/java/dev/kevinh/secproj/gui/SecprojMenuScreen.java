@@ -1,4 +1,4 @@
-package dev.kevinh.secproj.screens;
+package dev.kevinh.secproj.gui;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;

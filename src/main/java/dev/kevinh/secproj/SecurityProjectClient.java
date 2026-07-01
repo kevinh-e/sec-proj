@@ -1,5 +1,6 @@
 package dev.kevinh.secproj;
 
+import dev.kevinh.secproj.gui.Overlays;
 import dev.kevinh.secproj.tools.TimedQueue;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -23,6 +24,7 @@ public class SecurityProjectClient implements ClientModInitializer {
 
     // draw shi
     HudRenderCallback.EVENT.register((context, tickDeltaManager) -> {
+      Overlays.render(context, tickDeltaManager);
       fetchTickEvents(context, tickDeltaManager);
       renderOverlay(context, tickDeltaManager);
     });
