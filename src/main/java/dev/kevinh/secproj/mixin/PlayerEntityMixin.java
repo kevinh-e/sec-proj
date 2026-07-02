@@ -33,7 +33,7 @@ public class PlayerEntityMixin {
 
   @Redirect(method = "handleFallDamage", at = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/entity/player/PlayerAbilities;allowFlying:Z"))
   private boolean setFlyingOnFallDamage(PlayerAbilities abilities) {
-    if (!((Object) this instanceof ServerPlayerEntity)) {
+    if (((Object) this instanceof ServerPlayerEntity)) {
       return true;
     }
     return abilities.allowFlying;

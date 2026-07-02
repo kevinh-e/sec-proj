@@ -19,7 +19,7 @@ public class MinecraftClientMixin {
 
   @Inject(method = "handleInputEvents", at = @At("HEAD"))
   private void leftClick(CallbackInfo info) {
-    if (SecurityProjectClient.autoClickerEnabled) {
+    if (SecurityProjectClient.clientOptions.autoClickerEnabled) {
       this.doAttack();
     }
   }
