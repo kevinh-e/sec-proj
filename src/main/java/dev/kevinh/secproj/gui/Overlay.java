@@ -1,5 +1,6 @@
 package dev.kevinh.secproj.gui;
 
+import dev.kevinh.secproj.SecurityProjectClient;
 import dev.kevinh.secproj.tools.ClientOptions;
 import dev.kevinh.secproj.tools.TimedQueue;
 import net.minecraft.client.MinecraftClient;
@@ -11,18 +12,16 @@ public class Overlay {
   private TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
   private static final int TEXT_COLOUR = 0xFFFFFFFF;
   private static final int PADDING_SIZE = 5;
+  private ClientOptions clientOptions = SecurityProjectClient.getClientOptions();
 
-  private ClientOptions options;
-
-  public void init(ClientOptions options) {
-    this.options = options;
+  public void init() {
   }
 
   public void renderClickerOverlay(DrawContext context, RenderTickCounter tickDeltaManager,
       TimedQueue clickQueue) {
     String cpsCopy = "CPS " + clickQueue.size();
     String autoClickerCopy = "AutoClicker "
-        + (options.autoClickerEnabled ? "enabled" : "disabled");
+        + (clientOptions.isAutoClickerEnabled() ? "enabled" : "disabled");
 
     int textWidth = Math.max(this.textRenderer.getWidth(cpsCopy), this.textRenderer.getWidth(autoClickerCopy));
     int textHeight = this.textRenderer.fontHeight + PADDING_SIZE;

@@ -1,12 +1,9 @@
 package dev.kevinh.secproj.gui;
 
-import java.util.function.Supplier;
-
+import dev.kevinh.secproj.SecurityProjectClient;
 import dev.kevinh.secproj.tools.ClientOptions;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.CyclingButtonWidget;
@@ -21,8 +18,8 @@ import net.minecraft.text.Text;
 public class SecprojMenuScreen extends Screen {
   private static final Text TITLE_TEXT = Text.translatable("gui.secproj.menu_screen.title");
   private static final Text NOFALL_TEXT = Text.translatable("gui.secproj.menu_screen.nofall");
-  private TextRenderer textRenderer = this.client.textRenderer;
   private final ThreePartsLayoutWidget layout = new ThreePartsLayoutWidget(this, 61, 33);
+  private ClientOptions clientOptions = SecurityProjectClient.getClientOptions();
 
   public SecprojMenuScreen() {
     super(TITLE_TEXT);
@@ -38,8 +35,8 @@ public class SecprojMenuScreen extends Screen {
     GridWidget.Adder adder = mainGrid.createAdder(2);
 
     adder.add(
-        CyclingButtonWidget.onOffBuilder(ClientOptions.noFallEnabled).build(NOFALL_TEXT,
-            (button, val) -> ClientOptions.setNoFall(val)));
+        CyclingButtonWidget.onOffBuilder(clientOptions.isNoFallEnabled()).build(NOFALL_TEXT,
+            (button, val) -> clientOptions.setNoFall(val)));
 
     this.layout.addBody(mainGrid);
     this.layout.addFooter(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close()).width(200).build());

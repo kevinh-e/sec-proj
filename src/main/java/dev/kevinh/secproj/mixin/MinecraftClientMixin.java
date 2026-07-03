@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.kevinh.secproj.tools.ClientOptions;
+import dev.kevinh.secproj.SecurityProjectClient;
 import net.minecraft.client.MinecraftClient;
 
 @Mixin(MinecraftClient.class)
@@ -19,7 +19,7 @@ public class MinecraftClientMixin {
 
   @Inject(method = "handleInputEvents", at = @At("HEAD"))
   private void leftClick(CallbackInfo info) {
-    if (ClientOptions.autoClickerEnabled) {
+    if (SecurityProjectClient.getClientOptions().isAutoClickerEnabled()) {
       this.doAttack();
     }
   }
