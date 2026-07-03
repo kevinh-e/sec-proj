@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.kevinh.secproj.SecurityProject;
+import dev.kevinh.secproj.SecurityProjectClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,8 +34,10 @@ public class PlayerEntityMixin {
 
   @Redirect(method = "handleFallDamage", at = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/entity/player/PlayerAbilities;allowFlying:Z"))
   private boolean setFlyingOnFallDamage(PlayerAbilities abilities) {
-    if (((Object) this instanceof ServerPlayerEntity)) {
-      return true;
+    if (SecurityProjectClient.getClientOptions().isNoFallEnabled()) {
+      if (((Object) this instanceof ServerPlayerEntity)) {
+        return true;
+      }
     }
     return abilities.allowFlying;
   }
