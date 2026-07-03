@@ -22,8 +22,8 @@ public class SecurityProjectClient implements ClientModInitializer {
   public static final TimedQueue clickQueue = new TimedQueue();
 
   public KeyBinding OPEN_MENU_KEY;
+  public KeyBinding AUTOCLICKER_TOGGLE_KEY;
   private boolean leftMouseWasClicked = false;
-  private boolean rightMouseWasClicked = false;
 
   @Override
   public void onInitializeClient() {
@@ -43,16 +43,12 @@ public class SecurityProjectClient implements ClientModInitializer {
     if (this.OPEN_MENU_KEY.wasPressed()) {
       tickClient.setScreen(new SecprojMenuScreen());
     }
+    if (this.AUTOCLICKER_TOGGLE_KEY.wasPressed()) {
+      clientOptions.toggleAutoClicker();
+    }
   }
 
   private void fetchRenderTickEvents(DrawContext context, RenderTickCounter tickDeltaManager) {
-    if (client.mouse.wasRightButtonClicked()) {
-      rightMouseWasClicked = true;
-    } else if (rightMouseWasClicked && !client.mouse.wasRightButtonClicked()) {
-      rightMouseWasClicked = false;
-      clientOptions.toggleAutoClicker();
-    }
-
     if (client.mouse.wasLeftButtonClicked()) {
       leftMouseWasClicked = true;
     } else if (leftMouseWasClicked && !client.mouse.wasLeftButtonClicked()) {
@@ -64,6 +60,9 @@ public class SecurityProjectClient implements ClientModInitializer {
   private void initializeKeymappings() {
     this.OPEN_MENU_KEY = KeyBindingHelper
         .registerKeyBinding(new KeyBinding("key.secproj.menu", GLFW.GLFW_KEY_G, "key.categories.secproj"));
+    this.AUTOCLICKER_TOGGLE_KEY = KeyBindingHelper
+        .registerKeyBinding(
+            new KeyBinding("key.secproj.autoclicker", GLFW.GLFW_KEY_RIGHT_BRACKET, "key.categories.secproj"));
   }
 
   public static ClientOptions getClientOptions() {
