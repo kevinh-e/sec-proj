@@ -19,7 +19,6 @@ public class SecurityProjectClient implements ClientModInitializer {
   private MinecraftClient client = MinecraftClient.getInstance();
 
   private static ClientOptions clientOptions = new ClientOptions();
-  public static Overlay overlay = new Overlay();
   public static final TimedQueue clickQueue = new TimedQueue();
 
   public KeyBinding OPEN_MENU_KEY;
@@ -30,14 +29,13 @@ public class SecurityProjectClient implements ClientModInitializer {
   public void onInitializeClient() {
     SecurityProject.LOGGER.info("Setting up " + SecurityProject.MOD_ID + "Client");
 
-    overlay.init();
     this.initializeKeymappings();
     ClientTickEvents.END_CLIENT_TICK.register(client -> fetchClientTickEvents(client));
 
     // draw shi
     HudRenderCallback.EVENT.register((context, tickDeltaManager) -> {
       fetchRenderTickEvents(context, tickDeltaManager);
-      overlay.renderClickerOverlay(context, tickDeltaManager, clickQueue);
+      Overlay.renderClickerOverlay(context, tickDeltaManager, clickQueue);
     });
   }
 
@@ -48,16 +46,16 @@ public class SecurityProjectClient implements ClientModInitializer {
   }
 
   private void fetchRenderTickEvents(DrawContext context, RenderTickCounter tickDeltaManager) {
-    if (this.client.mouse.wasRightButtonClicked()) {
+    if (client.mouse.wasRightButtonClicked()) {
       rightMouseWasClicked = true;
-    } else if (rightMouseWasClicked && !this.client.mouse.wasRightButtonClicked()) {
+    } else if (rightMouseWasClicked && !client.mouse.wasRightButtonClicked()) {
       rightMouseWasClicked = false;
       clientOptions.toggleAutoClicker();
     }
 
-    if (this.client.mouse.wasLeftButtonClicked()) {
+    if (client.mouse.wasLeftButtonClicked()) {
       leftMouseWasClicked = true;
-    } else if (leftMouseWasClicked && !this.client.mouse.wasLeftButtonClicked()) {
+    } else if (leftMouseWasClicked && !client.mouse.wasLeftButtonClicked()) {
       clickQueue.addEventNow();
       leftMouseWasClicked = false;
     }
