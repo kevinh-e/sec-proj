@@ -1,20 +1,20 @@
 package dev.kevinh.secproj.tools;
 
 public class ClientOptions {
-  public boolean autoClickerEnabled;
-  public boolean noFallEnabled;
+  public static boolean autoClickerEnabled;
+  public static boolean noFallEnabled;
 
   public ClientOptions() {
-    this.autoClickerEnabled = false;
-    this.noFallEnabled = false;
+    autoClickerEnabled = false;
+    noFallEnabled = false;
   }
 
-  public void toggleAutoClicker() {
-    this.autoClickerEnabled = !this.autoClickerEnabled;
+  public static void toggleAutoClicker() {
+    autoClickerEnabled = !autoClickerEnabled;
   }
 
-  public void setNoFall(boolean flag) {
-    this.noFallEnabled = flag;
+  public static void setNoFall(boolean flag) {
+    noFallEnabled = flag;
   }
 
 }

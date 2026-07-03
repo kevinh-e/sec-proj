@@ -45,7 +45,7 @@ public class SecurityProjectClient implements ClientModInitializer {
 
   private void fetchClientTickEvents(MinecraftClient tickClient) {
     if (this.OPEN_MENU_KEY.wasPressed()) {
-      tickClient.setScreen(new SecprojMenuScreen(this.clientOptions));
+      tickClient.setScreen(new SecprojMenuScreen());
     }
   }
 
@@ -54,7 +54,7 @@ public class SecurityProjectClient implements ClientModInitializer {
       rightMouseWasClicked = true;
     } else if (rightMouseWasClicked && !this.client.mouse.wasRightButtonClicked()) {
       rightMouseWasClicked = false;
-      clientOptions.autoClickerEnabled = !clientOptions.autoClickerEnabled;
+      ClientOptions.toggleAutoClicker();
     }
 
     if (this.client.mouse.wasLeftButtonClicked()) {

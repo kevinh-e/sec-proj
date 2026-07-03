@@ -23,11 +23,9 @@ public class SecprojMenuScreen extends Screen {
   private static final Text NOFALL_TEXT = Text.translatable("gui.secproj.menu_screen.nofall");
   private TextRenderer textRenderer = this.client.textRenderer;
   private final ThreePartsLayoutWidget layout = new ThreePartsLayoutWidget(this, 61, 33);
-  private ClientOptions options;
 
-  public SecprojMenuScreen(ClientOptions options) {
+  public SecprojMenuScreen() {
     super(TITLE_TEXT);
-    this.options = options;
   }
 
   @Override
@@ -40,9 +38,10 @@ public class SecprojMenuScreen extends Screen {
     GridWidget.Adder adder = mainGrid.createAdder(2);
 
     adder.add(
-        CyclingButtonWidget.onOffBuilder(options.noFallEnabled).build(NOFALL_TEXT,
-            (button, val) -> options.setNoFall(val)));
+        CyclingButtonWidget.onOffBuilder(ClientOptions.noFallEnabled).build(NOFALL_TEXT,
+            (button, val) -> ClientOptions.setNoFall(val)));
 
+    this.layout.addBody(mainGrid);
     this.layout.addFooter(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close()).width(200).build());
 
     this.layout.forEachChild(element -> {
