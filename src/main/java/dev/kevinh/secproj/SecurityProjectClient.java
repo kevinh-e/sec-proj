@@ -23,6 +23,9 @@ public class SecurityProjectClient implements ClientModInitializer {
 
   public KeyBinding OPEN_MENU_KEY;
   public KeyBinding AUTOCLICKER_TOGGLE_KEY;
+  public KeyBinding NOFALL_TOGGLE_KEY;
+  public KeyBinding FREECAM_TOGGLE_KEY;
+
   private boolean leftMouseWasClicked = false;
 
   @Override
@@ -35,7 +38,7 @@ public class SecurityProjectClient implements ClientModInitializer {
     // draw shi
     HudRenderCallback.EVENT.register((context, tickDeltaManager) -> {
       fetchRenderTickEvents(context, tickDeltaManager);
-      Overlay.renderClickerOverlay(context, tickDeltaManager, clickQueue);
+      Overlay.renderOverlay(context, tickDeltaManager, clickQueue);
     });
   }
 
@@ -45,6 +48,12 @@ public class SecurityProjectClient implements ClientModInitializer {
     }
     if (this.AUTOCLICKER_TOGGLE_KEY.wasPressed()) {
       clientOptions.toggleAutoClicker();
+    }
+    if (this.NOFALL_TOGGLE_KEY.wasPressed()) {
+      clientOptions.toggleNoFall();
+    }
+    if (this.FREECAM_TOGGLE_KEY.wasPressed()) {
+      clientOptions.toggleFreecam();
     }
   }
 
@@ -63,6 +72,12 @@ public class SecurityProjectClient implements ClientModInitializer {
     this.AUTOCLICKER_TOGGLE_KEY = KeyBindingHelper
         .registerKeyBinding(
             new KeyBinding("key.secproj.autoclicker", GLFW.GLFW_KEY_RIGHT_BRACKET, "key.categories.secproj"));
+    this.NOFALL_TOGGLE_KEY = KeyBindingHelper
+        .registerKeyBinding(
+            new KeyBinding("key.secproj.nofall", GLFW.GLFW_KEY_LEFT_BRACKET, "key.categories.secproj"));
+    this.FREECAM_TOGGLE_KEY = KeyBindingHelper
+        .registerKeyBinding(
+            new KeyBinding("key.secproj.freecam", GLFW.GLFW_KEY_N, "key.categories.secproj"));
   }
 
   public static ClientOptions getClientOptions() {
