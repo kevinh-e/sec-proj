@@ -5,6 +5,7 @@ import org.lwjgl.glfw.GLFW;
 import dev.kevinh.secproj.gui.Overlay;
 import dev.kevinh.secproj.gui.SecprojMenuScreen;
 import dev.kevinh.secproj.tools.ClientOptions;
+import dev.kevinh.secproj.tools.ClientState;
 import dev.kevinh.secproj.tools.TimedQueue;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -16,10 +17,11 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderTickCounter;
 
 public class SecurityProjectClient implements ClientModInitializer {
-  private MinecraftClient client = MinecraftClient.getInstance();
+  private MinecraftClient client;
 
   private static ClientOptions clientOptions = new ClientOptions();
   public static final TimedQueue clickQueue = new TimedQueue();
+  public static ClientState clientState = new ClientState();
 
   public KeyBinding OPEN_MENU_KEY;
   public KeyBinding AUTOCLICKER_TOGGLE_KEY;
@@ -31,6 +33,7 @@ public class SecurityProjectClient implements ClientModInitializer {
   @Override
   public void onInitializeClient() {
     SecurityProject.LOGGER.info("Setting up " + SecurityProject.MOD_ID + "Client");
+    client = MinecraftClient.getInstance();
 
     this.initializeKeymappings();
     ClientTickEvents.END_CLIENT_TICK.register(client -> fetchClientTickEvents(client));
@@ -54,6 +57,7 @@ public class SecurityProjectClient implements ClientModInitializer {
     }
     if (this.FREECAM_TOGGLE_KEY.wasPressed()) {
       clientOptions.toggleFreecam();
+      clientState.setFreeCamState(client.gameRenderer.getCamera().getPos());
     }
   }
 
@@ -82,5 +86,9 @@ public class SecurityProjectClient implements ClientModInitializer {
 
   public static ClientOptions getClientOptions() {
     return clientOptions;
+  }
+
+  public static ClientState getClientState() {
+    return clientState;
   }
 }

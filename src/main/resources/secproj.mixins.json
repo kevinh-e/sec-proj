@@ -6,7 +6,8 @@
     "TitleScreenMixin",
     "PlayerEntityMixin",
     "MinecraftClientMixin",
-    "KeyboardInputMixin"
+    "KeyboardInputMixin",
+    "CameraMixin"
   ],
   "injectors": {
     "defaultRequire": 1

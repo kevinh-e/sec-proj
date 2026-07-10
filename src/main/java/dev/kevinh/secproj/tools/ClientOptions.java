@@ -4,11 +4,13 @@ public class ClientOptions {
   private boolean autoClickerEnabled;
   private boolean noFallEnabled;
   private boolean freecamEnabled;
+  private float freecamSpeed;
 
   public ClientOptions() {
     autoClickerEnabled = false;
     noFallEnabled = false;
     freecamEnabled = false;
+    freecamSpeed = (float) 0.3;
   }
 
   public void toggleAutoClicker() {
@@ -41,5 +43,9 @@ public class ClientOptions {
 
   public void toggleFreecam() {
     this.freecamEnabled = !this.freecamEnabled;
+  }
+
+  public float getFreecamSpeed() {
+    return this.freecamSpeed;
   }
 }
