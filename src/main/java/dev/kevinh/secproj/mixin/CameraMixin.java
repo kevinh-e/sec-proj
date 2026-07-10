@@ -5,17 +5,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import dev.kevinh.secproj.SecurityProject;
 import dev.kevinh.secproj.SecurityProjectClient;
 import dev.kevinh.secproj.tools.ClientOptions;
 import dev.kevinh.secproj.tools.ClientState;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.input.KeyboardInput;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.Camera;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 @Mixin(Camera.class)
@@ -74,5 +69,6 @@ public class CameraMixin {
     } else {
       this.setPos(x, y, z);
     }
+
   }
 }
