@@ -18,7 +18,6 @@ import net.minecraft.stat.Stats;
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin {
-
   @Inject(method = "jump", at = @At("TAIL"))
   private void injectJump(CallbackInfo info) {
     if (!((Object) this instanceof ServerPlayerEntity)) {
@@ -32,13 +31,15 @@ public class PlayerEntityMixin {
         playerY);
   }
 
-  @Redirect(method = "handleFallDamage", at = @At(value = "FIELD", opcode = Opcodes.GETFIELD, target = "Lnet/minecraft/entity/player/PlayerAbilities;allowFlying:Z"))
-  private boolean setFlyingOnFallDamage(PlayerAbilities abilities) {
-    if (SecurityProjectClient.getClientOptions().isNoFallEnabled()) {
-      if (((Object) this instanceof ServerPlayerEntity)) {
-        return true;
-      }
-    }
-    return abilities.allowFlying;
-  }
+  // @Redirect(method = "handleFallDamage", at = @At(value = "FIELD", opcode =
+  // Opcodes.GETFIELD, target =
+  // "Lnet/minecraft/entity/player/PlayerAbilities;allowFlying:Z"))
+  // private boolean setFlyingOnFallDamage(PlayerAbilities abilities) {
+  // if (SecurityProjectClient.getClientOptions().isNoFallEnabled()) {
+  // if (((Object) this instanceof ServerPlayerEntity)) {
+  // return true;
+  // }
+  // }
+  // return abilities.allowFlying;
+  // }
 }
