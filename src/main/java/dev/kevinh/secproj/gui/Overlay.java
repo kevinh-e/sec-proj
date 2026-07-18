@@ -25,6 +25,8 @@ public class Overlay {
         + (SecurityProjectClient.getClientOptions().isAutoClickerEnabled() ? "enabled" : "disabled"));
     lines.add("Freecam "
         + (SecurityProjectClient.getClientOptions().isFreecamEnabled() ? "enabled" : "disabled"));
+    lines.add(String.format("Freecam Speed %.2f",
+        SecurityProjectClient.getClientOptions().getFreecamSpeed()));
 
     int textWidth = lines.stream().mapToInt(textRenderer::getWidth).max().orElse(0);
     int textHeight = textRenderer.fontHeight + PADDING_SIZE;

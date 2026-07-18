@@ -10,7 +10,8 @@
     "CameraMixin",
     "WorldRendererMixin",
     "ClientPlayerEntityMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "SimpleOptionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

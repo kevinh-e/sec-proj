@@ -9,6 +9,7 @@ public class ClientOptions {
   private boolean freecamEnabled;
   private boolean stepEnabled;
   private double freecamSpeed;
+  private boolean fullBrightEnabled;
 
   public static final double FREECAM_SPEED_MIN = 0.05;
   public static final double FREECAM_SPEED_MAX = 1.0;
@@ -20,6 +21,7 @@ public class ClientOptions {
     freecamEnabled = false;
     stepEnabled = false;
     freecamSpeed = FREECAM_SPEED_DEFAULT;
+    fullBrightEnabled = false;
   }
 
   public void setAutoClicker(boolean flag) {
@@ -62,5 +64,13 @@ public class ClientOptions {
 
   public double getFreecamSpeed() {
     return this.freecamSpeed;
+  }
+
+  public boolean isFullBrightEnabled() {
+    return this.fullBrightEnabled;
+  }
+
+  public void setFullBrightEnabled(boolean flag) {
+    this.fullBrightEnabled = flag;
   }
 }

@@ -57,7 +57,7 @@ public class SecprojMenuScreen extends Screen {
     double normalizedFreecamSpeed = (freecamSpeed - ClientOptions.FREECAM_SPEED_MIN)
         / (ClientOptions.FREECAM_SPEED_MAX - ClientOptions.FREECAM_SPEED_MIN);
 
-    adder.add(new SliderWidget(0, 0, 100, 20, freecamSpeedText, normalizedFreecamSpeed) {
+    adder.add(new SliderWidget(0, 0, 200, 20, freecamSpeedText, normalizedFreecamSpeed) {
       @Override
       protected void updateMessage() {
         this.setMessage(Text.literal(String.format("Speed: %.2f", clientOptions.getFreecamSpeed())));
