@@ -1,7 +1,5 @@
 package dev.kevinh.secproj.tools;
 
-import org.joml.Quaternionf;
-
 import net.minecraft.util.math.Vec3d;
 
 public class ClientState {

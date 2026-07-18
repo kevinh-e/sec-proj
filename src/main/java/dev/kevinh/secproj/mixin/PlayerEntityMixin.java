@@ -1,16 +1,12 @@
 package dev.kevinh.secproj.mixin;
 
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.kevinh.secproj.SecurityProject;
-import dev.kevinh.secproj.SecurityProjectClient;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.StatHandler;
@@ -30,16 +26,4 @@ public class PlayerEntityMixin {
         statHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.JUMP)),
         playerY);
   }
-
-  // @Redirect(method = "handleFallDamage", at = @At(value = "FIELD", opcode =
-  // Opcodes.GETFIELD, target =
-  // "Lnet/minecraft/entity/player/PlayerAbilities;allowFlying:Z"))
-  // private boolean setFlyingOnFallDamage(PlayerAbilities abilities) {
-  // if (SecurityProjectClient.getClientOptions().isNoFallEnabled()) {
-  // if (((Object) this instanceof ServerPlayerEntity)) {
-  // return true;
-  // }
-  // }
-  // return abilities.allowFlying;
-  // }
 }

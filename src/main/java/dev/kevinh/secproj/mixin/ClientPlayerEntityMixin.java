@@ -6,7 +6,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import dev.kevinh.secproj.SecurityProjectClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.Entity;
 
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerEntityMixin {
