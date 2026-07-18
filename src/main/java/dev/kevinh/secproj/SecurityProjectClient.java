@@ -51,17 +51,17 @@ public class SecurityProjectClient implements ClientModInitializer {
       tickClient.setScreen(new SecprojMenuScreen());
     }
     if (this.AUTOCLICKER_TOGGLE_KEY.wasPressed()) {
-      clientOptions.toggleAutoClicker();
+      clientOptions.setAutoClicker(!clientOptions.isAutoClickerEnabled());
     }
     if (this.NOFALL_TOGGLE_KEY.wasPressed()) {
-      clientOptions.toggleNoFall();
+      clientOptions.setNoFall(!clientOptions.isNoFallEnabled());
     }
     if (this.FREECAM_TOGGLE_KEY.wasPressed()) {
-      clientOptions.toggleFreecam();
+      clientOptions.setFreecam(!clientOptions.isFreecamEnabled());
       clientState.setFreeCamState(client.gameRenderer.getCamera().getPos());
     }
     if (this.STEP_TOGGLE_KEY.wasPressed()) {
-      clientOptions.toggleStep();
+      clientOptions.setStep(!clientOptions.isStepEnabled());
     }
   }
 

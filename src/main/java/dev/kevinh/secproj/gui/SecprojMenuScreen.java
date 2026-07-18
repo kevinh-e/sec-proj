@@ -18,6 +18,9 @@ import net.minecraft.text.Text;
 public class SecprojMenuScreen extends Screen {
   private static final Text TITLE_TEXT = Text.translatable("gui.secproj.menu_screen.title");
   private static final Text NOFALL_TEXT = Text.translatable("gui.secproj.menu_screen.nofall");
+  private static final Text AUTOCLICKER_TEXT = Text.translatable("gui.secproj.menu_screen.autoclicker");
+  private static final Text FREECAM_TEXT = Text.translatable("gui.secproj.menu_screen.freecam");
+  private static final Text STEP_TEXT = Text.translatable("gui.secproj.menu_screen.step");
   private final ThreePartsLayoutWidget layout = new ThreePartsLayoutWidget(this, 61, 33);
   private ClientOptions clientOptions = SecurityProjectClient.getClientOptions();
 
@@ -37,6 +40,18 @@ public class SecprojMenuScreen extends Screen {
     adder.add(
         CyclingButtonWidget.onOffBuilder(clientOptions.isNoFallEnabled()).build(NOFALL_TEXT,
             (button, val) -> clientOptions.setNoFall(val)));
+
+    adder.add(
+        CyclingButtonWidget.onOffBuilder(clientOptions.isAutoClickerEnabled()).build(AUTOCLICKER_TEXT,
+            (button, val) -> clientOptions.setAutoClicker(val)));
+
+    adder.add(
+        CyclingButtonWidget.onOffBuilder(clientOptions.isFreecamEnabled()).build(FREECAM_TEXT,
+            (button, val) -> clientOptions.setFreecam(val)));
+
+    adder.add(
+        CyclingButtonWidget.onOffBuilder(clientOptions.isStepEnabled()).build(STEP_TEXT,
+            (button, val) -> clientOptions.setStep(val)));
 
     this.layout.addBody(mainGrid);
     this.layout.addFooter(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close()).width(200).build());
