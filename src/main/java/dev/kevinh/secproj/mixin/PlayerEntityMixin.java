@@ -26,4 +26,5 @@ public class PlayerEntityMixin {
         statHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.JUMP)),
         playerY);
   }
+
 }

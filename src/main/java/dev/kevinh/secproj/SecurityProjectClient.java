@@ -27,6 +27,7 @@ public class SecurityProjectClient implements ClientModInitializer {
   public KeyBinding AUTOCLICKER_TOGGLE_KEY;
   public KeyBinding NOFALL_TOGGLE_KEY;
   public KeyBinding FREECAM_TOGGLE_KEY;
+  public KeyBinding STEP_TOGGLE_KEY;
 
   private boolean leftMouseWasClicked = false;
 
@@ -59,6 +60,9 @@ public class SecurityProjectClient implements ClientModInitializer {
       clientOptions.toggleFreecam();
       clientState.setFreeCamState(client.gameRenderer.getCamera().getPos());
     }
+    if (this.STEP_TOGGLE_KEY.wasPressed()) {
+      clientOptions.toggleStep();
+    }
   }
 
   private void fetchRenderTickEvents(DrawContext context, RenderTickCounter tickDeltaManager) {
@@ -82,6 +86,9 @@ public class SecurityProjectClient implements ClientModInitializer {
     this.FREECAM_TOGGLE_KEY = KeyBindingHelper
         .registerKeyBinding(
             new KeyBinding("key.secproj.freecam", GLFW.GLFW_KEY_N, "key.categories.secproj"));
+    this.STEP_TOGGLE_KEY = KeyBindingHelper
+        .registerKeyBinding(
+            new KeyBinding("key.secproj.step", GLFW.GLFW_KEY_SEMICOLON, "key.categories.secproj"));
   }
 
   public static ClientOptions getClientOptions() {

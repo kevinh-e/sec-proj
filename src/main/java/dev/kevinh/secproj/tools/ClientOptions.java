@@ -4,6 +4,7 @@ public class ClientOptions {
   private boolean autoClickerEnabled;
   private boolean noFallEnabled;
   private boolean freecamEnabled;
+  private boolean stepEnabled;
   private float freecamSpeed;
 
   public ClientOptions() {
@@ -47,5 +48,13 @@ public class ClientOptions {
 
   public float getFreecamSpeed() {
     return this.freecamSpeed;
+  }
+
+  public void toggleStep() {
+    this.stepEnabled = !this.stepEnabled;
+  }
+
+  public boolean isStepEnabled() {
+    return this.stepEnabled;
   }
 }

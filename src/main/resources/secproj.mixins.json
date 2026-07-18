@@ -9,7 +9,8 @@
     "KeyboardInputMixin",
     "CameraMixin",
     "WorldRendererMixin",
-    "ClientPlayerEntityMixin"
+    "ClientPlayerEntityMixin",
+    "LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
