@@ -58,7 +58,6 @@ public class SecurityProjectClient implements ClientModInitializer {
     }
     if (this.FREECAM_TOGGLE_KEY.wasPressed()) {
       clientOptions.setFreecam(!clientOptions.isFreecamEnabled());
-      clientState.setFreeCamState(client.gameRenderer.getCamera().getPos());
     }
     if (this.STEP_TOGGLE_KEY.wasPressed()) {
       clientOptions.setStep(!clientOptions.isStepEnabled());

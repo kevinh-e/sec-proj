@@ -6,6 +6,7 @@
   "gui.secproj.menu_screen.nofall": "No Fall",
   "gui.secproj.menu_screen.autoclicker": "Autoclicker",
   "gui.secproj.menu_screen.freecam": "Freecam",
+  "gui.secproj.menu_screen.freecam_speed": "Freecam Speed",
   "gui.secproj.menu_screen.step": "Step",
   "key.secproj.menu": "Open Secproj Menu",
   "key.secproj.autoclicker": "Activate Autoclicker",

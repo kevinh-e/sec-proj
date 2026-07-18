@@ -10,6 +10,7 @@ import net.minecraft.client.gui.widget.CyclingButtonWidget;
 import net.minecraft.client.gui.widget.DirectionalLayoutWidget;
 import net.minecraft.client.gui.widget.GridWidget;
 import net.minecraft.client.gui.widget.Positioner;
+import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
 import net.minecraft.screen.ScreenTexts;
@@ -20,6 +21,7 @@ public class SecprojMenuScreen extends Screen {
   private static final Text NOFALL_TEXT = Text.translatable("gui.secproj.menu_screen.nofall");
   private static final Text AUTOCLICKER_TEXT = Text.translatable("gui.secproj.menu_screen.autoclicker");
   private static final Text FREECAM_TEXT = Text.translatable("gui.secproj.menu_screen.freecam");
+  private static Text freecamSpeedText;
   private static final Text STEP_TEXT = Text.translatable("gui.secproj.menu_screen.step");
   private final ThreePartsLayoutWidget layout = new ThreePartsLayoutWidget(this, 61, 33);
   private ClientOptions clientOptions = SecurityProjectClient.getClientOptions();
@@ -48,6 +50,25 @@ public class SecprojMenuScreen extends Screen {
     adder.add(
         CyclingButtonWidget.onOffBuilder(clientOptions.isFreecamEnabled()).build(FREECAM_TEXT,
             (button, val) -> clientOptions.setFreecam(val)));
+
+    double freecamSpeed = clientOptions.getFreecamSpeed();
+    freecamSpeedText = Text
+        .translatable("gui.secproj.menu_screen.freecam_speed_text" + ": " + freecamSpeed);
+    double normalizedFreecamSpeed = (freecamSpeed - ClientOptions.FREECAM_SPEED_MIN)
+        / (ClientOptions.FREECAM_SPEED_MAX - ClientOptions.FREECAM_SPEED_MIN);
+
+    adder.add(new SliderWidget(0, 0, 100, 20, freecamSpeedText, normalizedFreecamSpeed) {
+      @Override
+      protected void updateMessage() {
+        this.setMessage(Text.literal(String.format("Speed: %.2f", clientOptions.getFreecamSpeed())));
+      }
+
+      @Override
+      protected void applyValue() {
+        clientOptions.setFreecamSpeed(ClientOptions.FREECAM_SPEED_MIN
+            + this.value * (ClientOptions.FREECAM_SPEED_MAX - ClientOptions.FREECAM_SPEED_MIN));
+      }
+    });
 
     adder.add(
         CyclingButtonWidget.onOffBuilder(clientOptions.isStepEnabled()).build(STEP_TEXT,

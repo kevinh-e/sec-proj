@@ -1,18 +1,25 @@
 package dev.kevinh.secproj.tools;
 
+import dev.kevinh.secproj.SecurityProjectClient;
+import net.minecraft.client.MinecraftClient;
+
 public class ClientOptions {
   private boolean autoClickerEnabled;
   private boolean noFallEnabled;
   private boolean freecamEnabled;
   private boolean stepEnabled;
-  private float freecamSpeed;
+  private double freecamSpeed;
+
+  public static final double FREECAM_SPEED_MIN = 0.05;
+  public static final double FREECAM_SPEED_MAX = 1.0;
+  public static final double FREECAM_SPEED_DEFAULT = 0.3;
 
   public ClientOptions() {
     autoClickerEnabled = false;
     noFallEnabled = false;
     freecamEnabled = false;
     stepEnabled = false;
-    freecamSpeed = (float) 0.3;
+    freecamSpeed = FREECAM_SPEED_DEFAULT;
   }
 
   public void setAutoClicker(boolean flag) {
@@ -32,7 +39,9 @@ public class ClientOptions {
   }
 
   public void setFreecam(boolean flag) {
+    MinecraftClient client = MinecraftClient.getInstance();
     this.freecamEnabled = flag;
+    SecurityProjectClient.getClientState().setFreeCamState(client.gameRenderer.getCamera().getPos());
   }
 
   public boolean isFreecamEnabled() {
@@ -47,7 +56,11 @@ public class ClientOptions {
     return this.stepEnabled;
   }
 
-  public float getFreecamSpeed() {
+  public void setFreecamSpeed(double speed) {
+    this.freecamSpeed = speed;
+  }
+
+  public double getFreecamSpeed() {
     return this.freecamSpeed;
   }
 }
