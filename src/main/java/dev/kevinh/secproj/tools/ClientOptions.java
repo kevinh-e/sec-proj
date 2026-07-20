@@ -11,6 +11,14 @@ public class ClientOptions {
   private double freecamSpeed;
   private boolean fullBrightEnabled;
 
+  private boolean cpsShownInOverlay;
+  private boolean autoClickerShownInOverlay;
+  private boolean noFallShownInOverlay;
+  private boolean freecamShownInOverlay;
+  private boolean freecamSpeedShownInOverlay;
+  private boolean stepShownInOverlay;
+  private boolean fullBrightShownInOverlay;
+
   public static final double FREECAM_SPEED_MIN = 0.05;
   public static final double FREECAM_SPEED_MAX = 1.0;
   public static final double FREECAM_SPEED_DEFAULT = 0.3;
@@ -22,6 +30,14 @@ public class ClientOptions {
     stepEnabled = false;
     freecamSpeed = FREECAM_SPEED_DEFAULT;
     fullBrightEnabled = false;
+
+    cpsShownInOverlay = true;
+    autoClickerShownInOverlay = true;
+    noFallShownInOverlay = true;
+    freecamShownInOverlay = true;
+    freecamSpeedShownInOverlay = true;
+    stepShownInOverlay = true;
+    fullBrightShownInOverlay = true;
   }
 
   public void setAutoClicker(boolean flag) {
@@ -72,5 +88,61 @@ public class ClientOptions {
 
   public void setFullBrightEnabled(boolean flag) {
     this.fullBrightEnabled = flag;
+  }
+
+  public boolean isCpsShownInOverlay() {
+    return this.cpsShownInOverlay;
+  }
+
+  public void setCpsShownInOverlay(boolean flag) {
+    this.cpsShownInOverlay = flag;
+  }
+
+  public boolean isAutoClickerShownInOverlay() {
+    return this.autoClickerShownInOverlay;
+  }
+
+  public void setAutoClickerShownInOverlay(boolean flag) {
+    this.autoClickerShownInOverlay = flag;
+  }
+
+  public boolean isNoFallShownInOverlay() {
+    return this.noFallShownInOverlay;
+  }
+
+  public void setNoFallShownInOverlay(boolean flag) {
+    this.noFallShownInOverlay = flag;
+  }
+
+  public boolean isFreecamShownInOverlay() {
+    return this.freecamShownInOverlay;
+  }
+
+  public void setFreecamShownInOverlay(boolean flag) {
+    this.freecamShownInOverlay = flag;
+  }
+
+  public boolean isFreecamSpeedShownInOverlay() {
+    return this.freecamSpeedShownInOverlay;
+  }
+
+  public void setFreecamSpeedShownInOverlay(boolean flag) {
+    this.freecamSpeedShownInOverlay = flag;
+  }
+
+  public boolean isStepShownInOverlay() {
+    return this.stepShownInOverlay;
+  }
+
+  public void setStepShownInOverlay(boolean flag) {
+    this.stepShownInOverlay = flag;
+  }
+
+  public boolean isFullBrightShownInOverlay() {
+    return this.fullBrightShownInOverlay;
+  }
+
+  public void setFullBrightShownInOverlay(boolean flag) {
+    this.fullBrightShownInOverlay = flag;
   }
 }
