@@ -3,9 +3,13 @@ package dev.kevinh.secproj.mixin;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import dev.kevinh.secproj.SecurityProject;
+import dev.kevinh.secproj.SecurityProjectClient;
+import dev.kevinh.secproj.tools.ClientOptions;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -27,4 +31,17 @@ public class PlayerEntityMixin {
         playerY);
   }
 
+  @Inject(method = "getBlockInteractionRange", at = @At("RETURN"))
+  public void modifyBlockReach(CallbackInfoReturnable<Double> cir) {
+    if (SecurityProjectClient.getClientOptions().isReachEnabled()) {
+      cir.setReturnValue(ClientOptions.BLOCK_REACH_DEFAULT);
+    }
+  }
+
+  @Inject(method = "getEntityInteractionRange", at = @At("RETURN"))
+  public void modifyEntityReach(CallbackInfoReturnable<Double> cir) {
+    if (SecurityProjectClient.getClientOptions().isReachEnabled()) {
+      cir.setReturnValue(ClientOptions.ENTITY_REACH_DEFAULT);
+    }
+  }
 }
