@@ -31,7 +31,7 @@ public class PlayerEntityMixin {
         playerY);
   }
 
-  @Inject(method = "getBlockInteractionRange", at = @At("RETURN"))
+  @Inject(method = "getBlockInteractionRange", at = @At("RETURN"), cancellable = true)
   public void modifyBlockReach(CallbackInfoReturnable<Double> cir) {
     ClientOptions options = SecurityProjectClient.getClientOptions();
     if (options.isReachEnabled()) {
@@ -39,7 +39,7 @@ public class PlayerEntityMixin {
     }
   }
 
-  @Inject(method = "getEntityInteractionRange", at = @At("RETURN"))
+  @Inject(method = "getEntityInteractionRange", at = @At("RETURN"), cancellable = true)
   public void modifyEntityReach(CallbackInfoReturnable<Double> cir) {
     ClientOptions options = SecurityProjectClient.getClientOptions();
     if (options.isReachEnabled()) {
