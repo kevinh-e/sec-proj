@@ -11,11 +11,15 @@
   "gui.secproj.menu_screen.fullbright": "FullBright",
   "gui.secproj.menu_screen.cps": "CPS",
   "gui.secproj.menu_screen.overlay": "Overlay",
+  "gui.secproj.menu_screen.reach": "Reach",
+  "gui.secproj.menu_screen.block_reach": "Block Reach",
+  "gui.secproj.menu_screen.entity_reach": "Entity Reach",
   "key.secproj.menu": "Open Secproj Menu",
   "key.secproj.autoclicker": "Activate Autoclicker",
   "key.secproj.nofall": "Activate NoFall",
   "key.secproj.freecam": "Activate Freecam",
   "key.secproj.step": "Activate Step",
   "key.secproj.fullbright": "Activate FullBright",
+  "key.secproj.reach": "Activate Reach",
   "key.categories.secproj": "Security Project"
 }

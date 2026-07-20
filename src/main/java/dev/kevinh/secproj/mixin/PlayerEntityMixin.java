@@ -33,15 +33,17 @@ public class PlayerEntityMixin {
 
   @Inject(method = "getBlockInteractionRange", at = @At("RETURN"))
   public void modifyBlockReach(CallbackInfoReturnable<Double> cir) {
-    if (SecurityProjectClient.getClientOptions().isReachEnabled()) {
-      cir.setReturnValue(ClientOptions.BLOCK_REACH_DEFAULT);
+    ClientOptions options = SecurityProjectClient.getClientOptions();
+    if (options.isReachEnabled()) {
+      cir.setReturnValue(options.getBlockReachValue());
     }
   }
 
   @Inject(method = "getEntityInteractionRange", at = @At("RETURN"))
   public void modifyEntityReach(CallbackInfoReturnable<Double> cir) {
-    if (SecurityProjectClient.getClientOptions().isReachEnabled()) {
-      cir.setReturnValue(ClientOptions.ENTITY_REACH_DEFAULT);
+    ClientOptions options = SecurityProjectClient.getClientOptions();
+    if (options.isReachEnabled()) {
+      cir.setReturnValue(options.getEntityReachValue());
     }
   }
 }

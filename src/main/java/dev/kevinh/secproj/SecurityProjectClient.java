@@ -29,6 +29,7 @@ public class SecurityProjectClient implements ClientModInitializer {
   public KeyBinding FREECAM_TOGGLE_KEY;
   public KeyBinding STEP_TOGGLE_KEY;
   public KeyBinding FULLBRIGHT_TOGGLE_KEY;
+  public KeyBinding REACH_TOGGLE_KEY;
 
   private boolean leftMouseWasClicked = false;
 
@@ -66,6 +67,9 @@ public class SecurityProjectClient implements ClientModInitializer {
     if (this.FULLBRIGHT_TOGGLE_KEY.wasPressed()) {
       clientOptions.setFullBrightEnabled(!clientOptions.isFullBrightEnabled());
     }
+    if (this.REACH_TOGGLE_KEY.wasPressed()) {
+      clientOptions.setReachEnabled(!clientOptions.isReachEnabled());
+    }
   }
 
   private void fetchRenderTickEvents(DrawContext context, RenderTickCounter tickDeltaManager) {
@@ -95,6 +99,9 @@ public class SecurityProjectClient implements ClientModInitializer {
     this.FULLBRIGHT_TOGGLE_KEY = KeyBindingHelper
         .registerKeyBinding(
             new KeyBinding("key.secproj.fullbright", GLFW.GLFW_KEY_B, "key.categories.secproj"));
+    this.REACH_TOGGLE_KEY = KeyBindingHelper
+        .registerKeyBinding(
+            new KeyBinding("key.secproj.reach", GLFW.GLFW_KEY_PERIOD, "key.categories.secproj"));
   }
 
   public static ClientOptions getClientOptions() {

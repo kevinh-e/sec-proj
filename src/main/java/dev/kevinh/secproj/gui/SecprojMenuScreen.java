@@ -26,6 +26,7 @@ public class SecprojMenuScreen extends Screen {
   private static final Text FULLBRIGHT_TEXT = Text.translatable("gui.secproj.menu_screen.fullbright");
   private static final Text CPS_TEXT = Text.translatable("gui.secproj.menu_screen.cps");
   private static final Text OVERLAY_TEXT = Text.translatable("gui.secproj.menu_screen.overlay");
+  private static final Text REACH_TEXT = Text.translatable("gui.secproj.menu_screen.reach");
   private final ThreePartsLayoutWidget layout = new ThreePartsLayoutWidget(this, 61, 33);
   private ClientOptions clientOptions = SecurityProjectClient.getClientOptions();
 
@@ -80,14 +81,16 @@ public class SecprojMenuScreen extends Screen {
 
     double freecamSpeed = clientOptions.getFreecamSpeed();
     freecamSpeedText = Text
-        .translatable("gui.secproj.menu_screen.freecam_speed" + ": " + freecamSpeed);
+        .translatable("gui.secproj.menu_screen.freecam_speed")
+        .append(Text.literal(": " + freecamSpeed));
     double normalizedFreecamSpeed = (freecamSpeed - ClientOptions.FREECAM_SPEED_MIN)
         / (ClientOptions.FREECAM_SPEED_MAX - ClientOptions.FREECAM_SPEED_MIN);
 
     adder.add(new SliderWidget(0, 0, 200, 20, freecamSpeedText, normalizedFreecamSpeed) {
       @Override
       protected void updateMessage() {
-        this.setMessage(Text.literal(String.format("Speed: %.2f", clientOptions.getFreecamSpeed())));
+        this.setMessage(Text.translatable("gui.secproj.menu_screen.freecam_speed")
+            .append(Text.literal(String.format(": %.2f", clientOptions.getFreecamSpeed()))));
       }
 
       @Override
@@ -105,6 +108,18 @@ public class SecprojMenuScreen extends Screen {
         CyclingButtonWidget.onOffBuilder(clientOptions.isCpsShownInOverlay()).build(OVERLAY_TEXT,
             (button, val) -> clientOptions.setCpsShownInOverlay(val)));
 
+    adder.add(
+        CyclingButtonWidget.onOffBuilder(clientOptions.isReachEnabled()).build(REACH_TEXT,
+            (button, val) -> clientOptions.setReachEnabled(val)));
+    adder.add(
+        CyclingButtonWidget.onOffBuilder(clientOptions.isReachShownInOverlay()).build(OVERLAY_TEXT,
+            (button, val) -> clientOptions.setReachShownInOverlay(val)));
+
+    adder.add(buildReachSlider("gui.secproj.menu_screen.block_reach",
+        clientOptions.getBlockReachValue(), clientOptions::setBlockReachValue), 2);
+    adder.add(buildReachSlider("gui.secproj.menu_screen.entity_reach",
+        clientOptions.getEntityReachValue(), clientOptions::setEntityReachValue), 2);
+
     this.layout.addBody(mainGrid);
     this.layout.addFooter(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close()).width(200).build());
 
@@ -112,6 +127,28 @@ public class SecprojMenuScreen extends Screen {
       ClickableWidget widget = this.addDrawableChild(element);
     });
     layout.refreshPositions();
+  }
+
+  private SliderWidget buildReachSlider(String labelKey, double currentValue,
+      java.util.function.DoubleConsumer onValueChanged) {
+    double normalized = (currentValue - ClientOptions.REACH_MIN)
+        / (ClientOptions.REACH_MAX - ClientOptions.REACH_MIN);
+    return new SliderWidget(0, 0, 200, 20,
+        Text.translatable(labelKey).append(Text.literal(String.format(": %.1f", currentValue))),
+        normalized) {
+      @Override
+      protected void updateMessage() {
+        double value = ClientOptions.REACH_MIN + this.value * (ClientOptions.REACH_MAX - ClientOptions.REACH_MIN);
+        this.setMessage(Text.translatable(labelKey)
+            .append(Text.literal(String.format(": %.1f", value))));
+      }
+
+      @Override
+      protected void applyValue() {
+        onValueChanged.accept(ClientOptions.REACH_MIN
+            + this.value * (ClientOptions.REACH_MAX - ClientOptions.REACH_MIN));
+      }
+    };
   }
 
   @Override

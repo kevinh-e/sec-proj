@@ -44,6 +44,13 @@ public class Overlay {
     if (options.isFullBrightShownInOverlay()) {
       lines.add("FullBright " + (options.isFullBrightEnabled() ? "enabled" : "disabled"));
     }
+    if (options.isReachShownInOverlay()) {
+      lines.add("Reach " + (options.isReachEnabled() ? "enabled" : "disabled"));
+      if (options.isReachEnabled()) {
+        lines.add(String.format("Block Reach %.1f", options.getBlockReachValue()));
+        lines.add(String.format("Entity Reach %.1f", options.getEntityReachValue()));
+      }
+    }
 
     if (lines.isEmpty()) {
       return;

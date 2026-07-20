@@ -21,12 +21,15 @@ public class ClientOptions {
   private boolean freecamSpeedShownInOverlay;
   private boolean stepShownInOverlay;
   private boolean fullBrightShownInOverlay;
+  private boolean reachShownInOverlay;
 
   public static final double FREECAM_SPEED_MIN = 0.05;
   public static final double FREECAM_SPEED_MAX = 1.0;
   public static final double FREECAM_SPEED_DEFAULT = 0.3;
   public static final double ENTITY_REACH_DEFAULT = 5;
   public static final double BLOCK_REACH_DEFAULT = 6.5;
+  public static final double REACH_MIN = 1.0;
+  public static final double REACH_MAX = 64.0;
 
   public ClientOptions() {
     autoClickerEnabled = false;
@@ -46,6 +49,7 @@ public class ClientOptions {
     freecamSpeedShownInOverlay = true;
     stepShownInOverlay = true;
     fullBrightShownInOverlay = true;
+    reachShownInOverlay = true;
   }
 
   public void setAutoClicker(boolean flag) {
@@ -96,55 +100,6 @@ public class ClientOptions {
 
   public void setFullBrightEnabled(boolean flag) {
     this.fullBrightEnabled = flag;
-  }
-
-<<<<<<< HEAD
-  public boolean isCpsShownInOverlay() {
-    return this.cpsShownInOverlay;
-  }
-
-  public void setCpsShownInOverlay(boolean flag) {
-    this.cpsShownInOverlay = flag;
-  }
-
-  public boolean isAutoClickerShownInOverlay() {
-    return this.autoClickerShownInOverlay;
-  }
-
-  public void setAutoClickerShownInOverlay(boolean flag) {
-    this.autoClickerShownInOverlay = flag;
-  }
-
-  public boolean isNoFallShownInOverlay() {
-    return this.noFallShownInOverlay;
-  }
-
-  public void setNoFallShownInOverlay(boolean flag) {
-    this.noFallShownInOverlay = flag;
-  }
-
-  public boolean isFreecamShownInOverlay() {
-    return this.freecamShownInOverlay;
-  }
-
-  public void setFreecamShownInOverlay(boolean flag) {
-    this.freecamShownInOverlay = flag;
-  }
-
-  public boolean isFreecamSpeedShownInOverlay() {
-    return this.freecamSpeedShownInOverlay;
-  }
-
-  public void setFreecamSpeedShownInOverlay(boolean flag) {
-    this.freecamSpeedShownInOverlay = flag;
-  }
-
-  public boolean isStepShownInOverlay() {
-    return this.stepShownInOverlay;
-  }
-
-  public void setStepShownInOverlay(boolean flag) {
-    this.stepShownInOverlay = flag;
   }
 
   public void setReachEnabled(boolean flag) {
@@ -225,5 +180,13 @@ public class ClientOptions {
 
   public void setFullBrightShownInOverlay(boolean flag) {
     this.fullBrightShownInOverlay = flag;
+  }
+
+  public boolean isReachShownInOverlay() {
+    return this.reachShownInOverlay;
+  }
+
+  public void setReachShownInOverlay(boolean flag) {
+    this.reachShownInOverlay = flag;
   }
 }
