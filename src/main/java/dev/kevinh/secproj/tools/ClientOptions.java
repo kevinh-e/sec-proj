@@ -10,6 +10,9 @@ public class ClientOptions {
   private boolean stepEnabled;
   private double freecamSpeed;
   private boolean fullBrightEnabled;
+  private boolean reachEnabled;
+  private double blockReachValue;
+  private double entityReachValue;
 
   private boolean cpsShownInOverlay;
   private boolean autoClickerShownInOverlay;
@@ -22,6 +25,8 @@ public class ClientOptions {
   public static final double FREECAM_SPEED_MIN = 0.05;
   public static final double FREECAM_SPEED_MAX = 1.0;
   public static final double FREECAM_SPEED_DEFAULT = 0.3;
+  public static final double ENTITY_REACH_DEFAULT = 5;
+  public static final double BLOCK_REACH_DEFAULT = 6.5;
 
   public ClientOptions() {
     autoClickerEnabled = false;
@@ -30,6 +35,9 @@ public class ClientOptions {
     stepEnabled = false;
     freecamSpeed = FREECAM_SPEED_DEFAULT;
     fullBrightEnabled = false;
+    reachEnabled = false;
+    blockReachValue = BLOCK_REACH_DEFAULT;
+    entityReachValue = ENTITY_REACH_DEFAULT;
 
     cpsShownInOverlay = true;
     autoClickerShownInOverlay = true;
@@ -88,6 +96,79 @@ public class ClientOptions {
 
   public void setFullBrightEnabled(boolean flag) {
     this.fullBrightEnabled = flag;
+  }
+
+<<<<<<< HEAD
+  public boolean isCpsShownInOverlay() {
+    return this.cpsShownInOverlay;
+  }
+
+  public void setCpsShownInOverlay(boolean flag) {
+    this.cpsShownInOverlay = flag;
+  }
+
+  public boolean isAutoClickerShownInOverlay() {
+    return this.autoClickerShownInOverlay;
+  }
+
+  public void setAutoClickerShownInOverlay(boolean flag) {
+    this.autoClickerShownInOverlay = flag;
+  }
+
+  public boolean isNoFallShownInOverlay() {
+    return this.noFallShownInOverlay;
+  }
+
+  public void setNoFallShownInOverlay(boolean flag) {
+    this.noFallShownInOverlay = flag;
+  }
+
+  public boolean isFreecamShownInOverlay() {
+    return this.freecamShownInOverlay;
+  }
+
+  public void setFreecamShownInOverlay(boolean flag) {
+    this.freecamShownInOverlay = flag;
+  }
+
+  public boolean isFreecamSpeedShownInOverlay() {
+    return this.freecamSpeedShownInOverlay;
+  }
+
+  public void setFreecamSpeedShownInOverlay(boolean flag) {
+    this.freecamSpeedShownInOverlay = flag;
+  }
+
+  public boolean isStepShownInOverlay() {
+    return this.stepShownInOverlay;
+  }
+
+  public void setStepShownInOverlay(boolean flag) {
+    this.stepShownInOverlay = flag;
+  }
+
+  public void setReachEnabled(boolean flag) {
+    this.reachEnabled = flag;
+  }
+
+  public boolean isReachEnabled() {
+    return this.reachEnabled;
+  }
+
+  public double getBlockReachValue() {
+    return blockReachValue;
+  }
+
+  public void setBlockReachValue(double blockReachValue) {
+    this.blockReachValue = blockReachValue;
+  }
+
+  public double getEntityReachValue() {
+    return entityReachValue;
+  }
+
+  public void setEntityReachValue(double entityReachValue) {
+    this.entityReachValue = entityReachValue;
   }
 
   public boolean isCpsShownInOverlay() {

@@ -11,7 +11,8 @@
     "WorldRendererMixin",
     "ClientPlayerEntityMixin",
     "LivingEntityMixin",
-    "SimpleOptionMixin"
+    "SimpleOptionMixin",
+    "GameRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
