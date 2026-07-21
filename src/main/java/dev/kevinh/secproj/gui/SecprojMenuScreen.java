@@ -27,6 +27,9 @@ public class SecprojMenuScreen extends Screen {
   private static final Text CPS_TEXT = Text.translatable("gui.secproj.menu_screen.cps");
   private static final Text OVERLAY_TEXT = Text.translatable("gui.secproj.menu_screen.overlay");
   private static final Text REACH_TEXT = Text.translatable("gui.secproj.menu_screen.reach");
+  private static final Text CRITICALS_TEXT = Text.translatable("gui.secproj.menu_screen.criticals");
+  private static final Text MACE_TEXT = Text.translatable("gui.secproj.menu_screen.mace");
+  private static Text maceHeightText;
   private final ThreePartsLayoutWidget layout = new ThreePartsLayoutWidget(this, 61, 33);
   private ClientOptions clientOptions = SecurityProjectClient.getClientOptions();
 
@@ -119,6 +122,41 @@ public class SecprojMenuScreen extends Screen {
         clientOptions.getBlockReachValue(), clientOptions::setBlockReachValue), 2);
     adder.add(buildReachSlider("gui.secproj.menu_screen.entity_reach",
         clientOptions.getEntityReachValue(), clientOptions::setEntityReachValue), 2);
+
+    adder.add(
+        CyclingButtonWidget.onOffBuilder(clientOptions.isCriticalsEnabled()).build(CRITICALS_TEXT,
+            (button, val) -> clientOptions.setCriticalsEnabled(val)));
+    adder.add(
+        CyclingButtonWidget.onOffBuilder(clientOptions.isCriticalsShownInOverlay()).build(OVERLAY_TEXT,
+            (button, val) -> clientOptions.setCriticalsShownInOverlay(val)));
+
+    adder.add(
+        CyclingButtonWidget.onOffBuilder(clientOptions.isMaceEnabled()).build(MACE_TEXT,
+            (button, val) -> clientOptions.setMaceEnabled(val)));
+    adder.add(
+        CyclingButtonWidget.onOffBuilder(clientOptions.isMaceShownInOverlay()).build(OVERLAY_TEXT,
+            (button, val) -> clientOptions.setMaceShownInOverlay(val)));
+
+    double maceHeight = clientOptions.getMaceHeight();
+    maceHeightText = Text
+        .translatable("gui.secproj.menu_screen.mace_height")
+        .append(Text.literal(String.format(": %.2f", maceHeight)));
+    double normalizedMaceHeight = (maceHeight - ClientOptions.MACE_HEIGHT_MIN)
+        / (ClientOptions.MACE_HEIGHT_MAX - ClientOptions.MACE_HEIGHT_MIN);
+
+    adder.add(new SliderWidget(0, 0, 200, 20, maceHeightText, normalizedMaceHeight) {
+      @Override
+      protected void updateMessage() {
+        this.setMessage(Text.translatable("gui.secproj.menu_screen.mace_height")
+            .append(Text.literal(String.format(": %.2f", clientOptions.getMaceHeight()))));
+      }
+
+      @Override
+      protected void applyValue() {
+        clientOptions.setMaceHeight(ClientOptions.MACE_HEIGHT_MIN
+            + this.value * (ClientOptions.MACE_HEIGHT_MAX - ClientOptions.MACE_HEIGHT_MIN));
+      }
+    }, 2);
 
     this.layout.addBody(mainGrid);
     this.layout.addFooter(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close()).width(200).build());

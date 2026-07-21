@@ -51,6 +51,15 @@ public class Overlay {
         lines.add(String.format("Entity Reach %.1f", options.getEntityReachValue()));
       }
     }
+    if (options.isCriticalsShownInOverlay()) {
+      lines.add("Criticals " + (options.isCriticalsEnabled() ? "enabled" : "disabled"));
+    }
+    if (options.isMaceShownInOverlay()) {
+      lines.add("Mace " + (options.isMaceEnabled() ? "enabled" : "disabled"));
+      if (options.isMaceEnabled()) {
+        lines.add(String.format("Mace Height %.2f", options.getMaceHeight()));
+      }
+    }
 
     if (lines.isEmpty()) {
       return;

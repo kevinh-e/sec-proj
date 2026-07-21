@@ -30,6 +30,8 @@ public class SecurityProjectClient implements ClientModInitializer {
   public KeyBinding STEP_TOGGLE_KEY;
   public KeyBinding FULLBRIGHT_TOGGLE_KEY;
   public KeyBinding REACH_TOGGLE_KEY;
+  public KeyBinding CRITICALS_TOGGLE_KEY;
+  public KeyBinding MACE_TOGGLE_KEY;
 
   private boolean leftMouseWasClicked = false;
 
@@ -70,6 +72,12 @@ public class SecurityProjectClient implements ClientModInitializer {
     if (this.REACH_TOGGLE_KEY.wasPressed()) {
       clientOptions.setReachEnabled(!clientOptions.isReachEnabled());
     }
+    if (this.CRITICALS_TOGGLE_KEY.wasPressed()) {
+      clientOptions.setCriticalsEnabled(!clientOptions.isCriticalsEnabled());
+    }
+    if (this.MACE_TOGGLE_KEY.wasPressed()) {
+      clientOptions.setMaceEnabled(!clientOptions.isMaceEnabled());
+    }
   }
 
   private void fetchRenderTickEvents(DrawContext context, RenderTickCounter tickDeltaManager) {
@@ -102,6 +110,12 @@ public class SecurityProjectClient implements ClientModInitializer {
     this.REACH_TOGGLE_KEY = KeyBindingHelper
         .registerKeyBinding(
             new KeyBinding("key.secproj.reach", GLFW.GLFW_KEY_PERIOD, "key.categories.secproj"));
+    this.CRITICALS_TOGGLE_KEY = KeyBindingHelper
+        .registerKeyBinding(
+            new KeyBinding("key.secproj.criticals", GLFW.GLFW_KEY_APOSTROPHE, "key.categories.secproj"));
+    this.MACE_TOGGLE_KEY = KeyBindingHelper
+        .registerKeyBinding(
+            new KeyBinding("key.secproj.mace", GLFW.GLFW_KEY_MINUS, "key.categories.secproj"));
   }
 
   public static ClientOptions getClientOptions() {
