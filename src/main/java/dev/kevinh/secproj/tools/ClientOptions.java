@@ -13,6 +13,9 @@ public class ClientOptions {
   private boolean reachEnabled;
   private double blockReachValue;
   private double entityReachValue;
+  private boolean criticalsEnabled;
+  private boolean maceEnabled;
+  private double maceHeight;
 
   private boolean cpsShownInOverlay;
   private boolean autoClickerShownInOverlay;
@@ -22,6 +25,8 @@ public class ClientOptions {
   private boolean stepShownInOverlay;
   private boolean fullBrightShownInOverlay;
   private boolean reachShownInOverlay;
+  private boolean criticalsShownInOverlay;
+  private boolean maceShownInOverlay;
 
   public static final double FREECAM_SPEED_MIN = 0.05;
   public static final double FREECAM_SPEED_MAX = 1.0;
@@ -30,6 +35,8 @@ public class ClientOptions {
   public static final double BLOCK_REACH_DEFAULT = 6.5;
   public static final double REACH_MIN = 1.0;
   public static final double REACH_MAX = 64.0;
+  public static final double MACE_HEIGHT_MIN = 0.0;
+  public static final double MACE_HEIGHT_MAX = 100.0;
 
   public ClientOptions() {
     autoClickerEnabled = false;
@@ -41,6 +48,9 @@ public class ClientOptions {
     reachEnabled = false;
     blockReachValue = BLOCK_REACH_DEFAULT;
     entityReachValue = ENTITY_REACH_DEFAULT;
+    criticalsEnabled = false;
+    maceEnabled = false;
+    maceHeight = 10.0;
 
     cpsShownInOverlay = true;
     autoClickerShownInOverlay = true;
@@ -50,6 +60,8 @@ public class ClientOptions {
     stepShownInOverlay = true;
     fullBrightShownInOverlay = true;
     reachShownInOverlay = true;
+    criticalsShownInOverlay = true;
+    maceShownInOverlay = true;
   }
 
   public void setAutoClicker(boolean flag) {
@@ -188,5 +200,45 @@ public class ClientOptions {
 
   public void setReachShownInOverlay(boolean flag) {
     this.reachShownInOverlay = flag;
+  }
+
+  public boolean isCriticalsEnabled() {
+    return criticalsEnabled;
+  }
+
+  public void setCriticalsEnabled(boolean criticalsEnabled) {
+    this.criticalsEnabled = criticalsEnabled;
+  }
+
+  public boolean isMaceEnabled() {
+    return maceEnabled;
+  }
+
+  public void setMaceEnabled(boolean maceEnabled) {
+    this.maceEnabled = maceEnabled;
+  }
+
+  public double getMaceHeight() {
+    return maceHeight;
+  }
+
+  public void setMaceHeight(double maceHeight) {
+    this.maceHeight = maceHeight;
+  }
+
+  public boolean isCriticalsShownInOverlay() {
+    return criticalsShownInOverlay;
+  }
+
+  public void setCriticalsShownInOverlay(boolean criticalsShownInOverlay) {
+    this.criticalsShownInOverlay = criticalsShownInOverlay;
+  }
+
+  public boolean isMaceShownInOverlay() {
+    return maceShownInOverlay;
+  }
+
+  public void setMaceShownInOverlay(boolean maceShownInOverlay) {
+    this.maceShownInOverlay = maceShownInOverlay;
   }
 }
