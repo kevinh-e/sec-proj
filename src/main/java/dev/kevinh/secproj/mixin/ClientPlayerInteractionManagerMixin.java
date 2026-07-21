@@ -12,15 +12,16 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.MaceItem;
 
 @Mixin(ClientPlayerInteractionManager.class)
 public class ClientPlayerInteractionManagerMixin {
-  private MinecraftClient client = MinecraftClient.getInstance();
 
-  @Inject(method = "attackEntity", at = @At("HEAD"), locals = LocalCapture.CAPTURE_FAILSOFT)
-  public void injectCriticals(CallbackInfo info, PlayerEntity player) {
+  @Inject(method = "attackEntity", at = @At("HEAD"))
+  public void injectCriticals(PlayerEntity player, Entity target, CallbackInfo info) {
+    MinecraftClient client = MinecraftClient.getInstance();
     if (!SecurityProjectClient.getClientOptions().isCriticalsEnabled())
       return;
 
