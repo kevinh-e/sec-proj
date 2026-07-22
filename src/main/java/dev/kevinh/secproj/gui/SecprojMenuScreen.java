@@ -32,10 +32,11 @@ public class SecprojMenuScreen extends Screen {
   private static final Text MACE_TEXT = Text.translatable("gui.secproj.menu_screen.mace");
   private static Text maceHeightText;
 
-  private static final int OPTION_WIDTH = 150;
+  private static final int OPTION_WIDTH = 140;
   private static final int OVERLAY_SIZE = 20;
-  private static final int GRID_SPACING = 2;
-  private static final int SLIDER_WIDTH_SPAN = OPTION_WIDTH + GRID_SPACING + OVERLAY_SIZE;
+  private static final int GRID_SPACING = 4;
+  private static final int COLUMNS = 4;
+  private static final int SLIDER_WIDTH_SPAN = (OPTION_WIDTH + GRID_SPACING + OVERLAY_SIZE) * 2 + GRID_SPACING;
 
   private final ThreePartsLayoutWidget layout = new ThreePartsLayoutWidget(this, 21, 35);
   private ClientOptions clientOptions = SecurityProjectClient.getClientOptions();
@@ -51,52 +52,47 @@ public class SecprojMenuScreen extends Screen {
     mainLayout.add(new TextWidget(TITLE_TEXT, this.textRenderer), Positioner::alignHorizontalCenter);
 
     GridWidget mainGrid = new GridWidget().setSpacing(GRID_SPACING);
-    GridWidget.Adder adder = mainGrid.createAdder(2);
+    GridWidget.Adder adder = mainGrid.createAdder(COLUMNS);
 
-    // Column 1: enable/disable the feature. Column 2: show/hide it in the overlay.
-    adder.add(
-        CyclingButtonWidget.onOffBuilder(clientOptions.isNoFallEnabled()).build(NOFALL_TEXT,
-            (button, val) -> clientOptions.setNoFall(val)));
-    adder.add(this.buildOverlayButton(
+    // Each "feature set" is a pair of columns: feature toggle + overlay toggle.
+    // We lay out two complete sets per row to make better use of horizontal space.
+    addFeaturePair(adder, NOFALL_TEXT, clientOptions.isNoFallEnabled(),
+        clientOptions::setNoFall,
         clientOptions::isNoFallShownInOverlay,
-        clientOptions::setNoFallShownInOverlay));
-
-    adder.add(
-        CyclingButtonWidget.onOffBuilder(clientOptions.isAutoClickerEnabled()).build(AUTOCLICKER_TEXT,
-            (button, val) -> clientOptions.setAutoClicker(val)));
-    adder.add(this.buildOverlayButton(
+        clientOptions::setNoFallShownInOverlay,
+        AUTOCLICKER_TEXT, clientOptions.isAutoClickerEnabled(),
+        clientOptions::setAutoClicker,
         clientOptions::isAutoClickerShownInOverlay,
-        clientOptions::setAutoClickerShownInOverlay));
+        clientOptions::setAutoClickerShownInOverlay);
 
-    adder.add(
-        CyclingButtonWidget.onOffBuilder(clientOptions.isFreecamEnabled()).build(FREECAM_TEXT,
-            (button, val) -> clientOptions.setFreecam(val)));
-    adder.add(this.buildOverlayButton(
+    addFeaturePair(adder, FREECAM_TEXT, clientOptions.isFreecamEnabled(),
+        clientOptions::setFreecam,
         clientOptions::isFreecamShownInOverlay,
-        clientOptions::setFreecamShownInOverlay));
-
-    adder.add(
-        CyclingButtonWidget.onOffBuilder(clientOptions.isStepEnabled()).build(STEP_TEXT,
-            (button, val) -> clientOptions.setStep(val)));
-    adder.add(this.buildOverlayButton(
+        clientOptions::setFreecamShownInOverlay,
+        STEP_TEXT, clientOptions.isStepEnabled(),
+        clientOptions::setStep,
         clientOptions::isStepShownInOverlay,
-        clientOptions::setStepShownInOverlay));
+        clientOptions::setStepShownInOverlay);
 
-    adder.add(
-        CyclingButtonWidget.onOffBuilder(clientOptions.isFullBrightEnabled()).build(FULLBRIGHT_TEXT,
-            (button, val) -> clientOptions.setFullBrightEnabled(val)));
-    adder.add(this.buildOverlayButton(
+    addFeaturePair(adder, FULLBRIGHT_TEXT, clientOptions.isFullBrightEnabled(),
+        clientOptions::setFullBrightEnabled,
         clientOptions::isFullBrightShownInOverlay,
-        clientOptions::setFullBrightShownInOverlay));
+        clientOptions::setFullBrightShownInOverlay,
+        REACH_TEXT, clientOptions.isReachEnabled(),
+        clientOptions::setReachEnabled,
+        clientOptions::isReachShownInOverlay,
+        clientOptions::setReachShownInOverlay);
 
     double freecamSpeed = clientOptions.getFreecamSpeed();
     freecamSpeedText = Text
         .translatable("gui.secproj.menu_screen.freecam_speed")
-        .append(Text.literal(": " + freecamSpeed));
+        .append(Text.literal(": " + String.format("%.2f", freecamSpeed)));
     double normalizedFreecamSpeed = (freecamSpeed - ClientOptions.FREECAM_SPEED_MIN)
         / (ClientOptions.FREECAM_SPEED_MAX - ClientOptions.FREECAM_SPEED_MIN);
 
-    adder.add(new SliderWidget(0, 0, OPTION_WIDTH, 20, freecamSpeedText, normalizedFreecamSpeed) {
+    // Freecam speed slider + overlay occupies the first feature set (2 columns).
+    adder.add(new SliderWidget(0, 0, OPTION_WIDTH + GRID_SPACING + OVERLAY_SIZE, 20,
+        freecamSpeedText, normalizedFreecamSpeed) {
       @Override
       protected void updateMessage() {
         this.setMessage(Text.translatable("gui.secproj.menu_screen.freecam_speed")
@@ -108,41 +104,30 @@ public class SecprojMenuScreen extends Screen {
         clientOptions.setFreecamSpeed(ClientOptions.FREECAM_SPEED_MIN
             + this.value * (ClientOptions.FREECAM_SPEED_MAX - ClientOptions.FREECAM_SPEED_MIN));
       }
-    });
+    }, 2);
     adder.add(this.buildOverlayButton(
         clientOptions::isFreecamSpeedShownInOverlay,
         clientOptions::setFreecamSpeedShownInOverlay));
 
+    // CPS is overlay-only, so it occupies the second feature set (2 columns).
     adder.add(new TextWidget(CPS_TEXT, this.textRenderer));
     adder.add(this.buildOverlayButton(
         clientOptions::isCpsShownInOverlay,
         clientOptions::setCpsShownInOverlay));
 
-    adder.add(
-        CyclingButtonWidget.onOffBuilder(clientOptions.isReachEnabled()).build(REACH_TEXT,
-            (button, val) -> clientOptions.setReachEnabled(val)));
-    adder.add(this.buildOverlayButton(
-        clientOptions::isReachShownInOverlay,
-        clientOptions::setReachShownInOverlay));
+    addFeaturePair(adder, CRITICALS_TEXT, clientOptions.isCriticalsEnabled(),
+        clientOptions::setCriticalsEnabled,
+        clientOptions::isCriticalsShownInOverlay,
+        clientOptions::setCriticalsShownInOverlay,
+        MACE_TEXT, clientOptions.isMaceEnabled(),
+        clientOptions::setMaceEnabled,
+        clientOptions::isMaceShownInOverlay,
+        clientOptions::setMaceShownInOverlay);
 
     adder.add(buildReachSlider("gui.secproj.menu_screen.block_reach",
-        clientOptions.getBlockReachValue(), clientOptions::setBlockReachValue, SLIDER_WIDTH_SPAN), 2);
+        clientOptions.getBlockReachValue(), clientOptions::setBlockReachValue, SLIDER_WIDTH_SPAN), COLUMNS);
     adder.add(buildReachSlider("gui.secproj.menu_screen.entity_reach",
-        clientOptions.getEntityReachValue(), clientOptions::setEntityReachValue, SLIDER_WIDTH_SPAN), 2);
-
-    adder.add(
-        CyclingButtonWidget.onOffBuilder(clientOptions.isCriticalsEnabled()).build(CRITICALS_TEXT,
-            (button, val) -> clientOptions.setCriticalsEnabled(val)));
-    adder.add(this.buildOverlayButton(
-        clientOptions::isCriticalsShownInOverlay,
-        clientOptions::setCriticalsShownInOverlay));
-
-    adder.add(
-        CyclingButtonWidget.onOffBuilder(clientOptions.isMaceEnabled()).build(MACE_TEXT,
-            (button, val) -> clientOptions.setMaceEnabled(val)));
-    adder.add(this.buildOverlayButton(
-        clientOptions::isMaceShownInOverlay,
-        clientOptions::setMaceShownInOverlay));
+        clientOptions.getEntityReachValue(), clientOptions::setEntityReachValue, SLIDER_WIDTH_SPAN), COLUMNS);
 
     double maceHeight = clientOptions.getMaceHeight();
     maceHeightText = Text
@@ -151,7 +136,8 @@ public class SecprojMenuScreen extends Screen {
     double normalizedMaceHeight = (maceHeight - ClientOptions.MACE_HEIGHT_MIN)
         / (ClientOptions.MACE_HEIGHT_MAX - ClientOptions.MACE_HEIGHT_MIN);
 
-    adder.add(new SliderWidget(0, 0, SLIDER_WIDTH_SPAN, 20, maceHeightText, normalizedMaceHeight) {
+    adder.add(new SliderWidget(0, 0, OPTION_WIDTH + GRID_SPACING + OVERLAY_SIZE, 20,
+        maceHeightText, normalizedMaceHeight) {
       @Override
       protected void updateMessage() {
         this.setMessage(Text.translatable("gui.secproj.menu_screen.mace_height")
@@ -164,20 +150,39 @@ public class SecprojMenuScreen extends Screen {
             + this.value * (ClientOptions.MACE_HEIGHT_MAX - ClientOptions.MACE_HEIGHT_MIN));
       }
     }, 2);
+    adder.add(this.buildOverlayButton(
+        clientOptions::isMaceHeightShownInOverlay,
+        clientOptions::setMaceHeightShownInOverlay));
 
     int maxBodyHeight = Math.max(100,
         this.height - this.layout.getHeaderHeight() - this.layout.getFooterHeight() - 30);
     mainGrid.setSpacing(GRID_SPACING);
     mainGrid.refreshPositions();
     int bodyHeight = Math.min(mainGrid.getHeight(), maxBodyHeight);
-    ScrollableGridWidget scrollableBody = new ScrollableGridWidget(0, 0, this.width,
+    ScrollableGridWidget scrollableBody = new ScrollableGridWidget(
+        0, 0, Math.min(this.width, mainGrid.getWidth() + ScrollableGridWidget.scrollbarWidth()),
         Math.max(20, bodyHeight), mainGrid);
     this.layout.addBody(scrollableBody);
+
     this.layout.addFooter(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close()).width(200).build());
 
     this.layout.forEachChild(this::addDrawableChild);
     this.layout.refreshPositions();
+    scrollableBody.setX((this.width - scrollableBody.getWidth()) / 2);
     scrollableBody.refreshLayout();
+  }
+
+  private void addFeaturePair(GridWidget.Adder adder,
+      Text leftLabel, boolean leftEnabled, Consumer<Boolean> leftSetter,
+      BooleanSupplier leftOverlayShown, Consumer<Boolean> leftOverlaySetter,
+      Text rightLabel, boolean rightEnabled, Consumer<Boolean> rightSetter,
+      BooleanSupplier rightOverlayShown, Consumer<Boolean> rightOverlaySetter) {
+    adder.add(CyclingButtonWidget.onOffBuilder(leftEnabled).build(leftLabel,
+        (button, val) -> leftSetter.accept(val)));
+    adder.add(this.buildOverlayButton(leftOverlayShown, leftOverlaySetter));
+    adder.add(CyclingButtonWidget.onOffBuilder(rightEnabled).build(rightLabel,
+        (button, val) -> rightSetter.accept(val)));
+    adder.add(this.buildOverlayButton(rightOverlayShown, rightOverlaySetter));
   }
 
   private SliderWidget buildReachSlider(String labelKey, double currentValue,

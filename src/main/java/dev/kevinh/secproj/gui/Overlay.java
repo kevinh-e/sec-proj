@@ -56,7 +56,7 @@ public class Overlay {
     }
     if (options.isMaceShownInOverlay()) {
       lines.add("Mace " + (options.isMaceEnabled() ? "enabled" : "disabled"));
-      if (options.isMaceEnabled()) {
+      if (options.isMaceEnabled() && options.isMaceHeightShownInOverlay()) {
         lines.add(String.format("Mace Height %.2f", options.getMaceHeight()));
       }
     }

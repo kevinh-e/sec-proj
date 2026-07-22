@@ -27,6 +27,7 @@ public class ClientOptions {
   private boolean reachShownInOverlay;
   private boolean criticalsShownInOverlay;
   private boolean maceShownInOverlay;
+  private boolean maceHeightShownInOverlay;
 
   public static final double FREECAM_SPEED_MIN = 0.05;
   public static final double FREECAM_SPEED_MAX = 1.0;
@@ -36,7 +37,7 @@ public class ClientOptions {
   public static final double REACH_MIN = 1.0;
   public static final double REACH_MAX = 64.0;
   public static final double MACE_HEIGHT_MIN = 0.0;
-  public static final double MACE_HEIGHT_MAX = 100.0;
+  public static final double MACE_HEIGHT_MAX = 13.0;
 
   public ClientOptions() {
     autoClickerEnabled = false;
@@ -62,6 +63,7 @@ public class ClientOptions {
     reachShownInOverlay = true;
     criticalsShownInOverlay = true;
     maceShownInOverlay = true;
+    maceHeightShownInOverlay = true;
   }
 
   public void setAutoClicker(boolean flag) {
@@ -240,5 +242,13 @@ public class ClientOptions {
 
   public void setMaceShownInOverlay(boolean maceShownInOverlay) {
     this.maceShownInOverlay = maceShownInOverlay;
+  }
+
+  public boolean isMaceHeightShownInOverlay() {
+    return maceHeightShownInOverlay;
+  }
+
+  public void setMaceHeightShownInOverlay(boolean maceHeightShownInOverlay) {
+    this.maceHeightShownInOverlay = maceHeightShownInOverlay;
   }
 }

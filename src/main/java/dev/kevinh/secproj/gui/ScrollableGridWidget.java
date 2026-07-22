@@ -27,14 +27,17 @@ public class ScrollableGridWidget extends ContainerWidget {
     this.grid = grid;
   }
 
+  public static int scrollbarWidth() {
+    return SCROLLER_WIDTH + SCROLLER_MARGIN * 2;
+  }
+
   @Override
   public List<? extends Element> children() {
     return this.childElements;
   }
 
   public void refreshLayout() {
-    int contentAreaWidth = Math.max(1,
-        this.getWidth() - SCROLLER_WIDTH - SCROLLER_MARGIN * 2);
+    int contentAreaWidth = Math.max(1, this.getWidth() - scrollbarWidth());
     this.grid.setColumnSpacing(2);
     this.grid.setRowSpacing(2);
     this.grid.setX(this.getX());
