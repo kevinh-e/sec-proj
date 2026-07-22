@@ -15,6 +15,7 @@ import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.MaceItem;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 
 @Mixin(ClientPlayerInteractionManager.class)
 public class ClientPlayerInteractionManagerMixin {
@@ -24,15 +25,15 @@ public class ClientPlayerInteractionManagerMixin {
     MinecraftClient client = MinecraftClient.getInstance();
     if (!SecurityProjectClient.getClientOptions().isCriticalsEnabled())
       return;
-
-    if (SecurityProjectClient.getClientOptions().isMaceEnabled()) {
-      if (player.getMainHandStack().getItem() instanceof MaceItem) {
-        if (player.isFallFlying())
-          return;
-        PacketHelper.sendMacePacket(client, 0);
-        PacketHelper.sendMacePacket(client, 1.501 + SecurityProjectClient.getClientOptions().getMaceHeight());
-        PacketHelper.sendMacePacket(client, 0);
-      }
+    double height = 0.001;
+    if (SecurityProjectClient.getClientOptions().isMaceEnabled()
+        && player.getMainHandStack().getItem() instanceof MaceItem) {
+      height += 1.5 + SecurityProjectClient.getClientOptions().getMaceHeight();
     }
+    if (player.isFallFlying())
+      return;
+    PacketHelper.sendMacePacket(client, 0);
+    PacketHelper.sendMacePacket(client, height);
+    PacketHelper.sendMacePacket(client, 0);
   }
 }
