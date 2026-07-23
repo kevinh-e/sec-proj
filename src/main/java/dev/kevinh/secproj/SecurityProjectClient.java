@@ -6,11 +6,13 @@ import dev.kevinh.secproj.gui.Overlay;
 import dev.kevinh.secproj.gui.SecprojMenuScreen;
 import dev.kevinh.secproj.tools.ClientOptions;
 import dev.kevinh.secproj.tools.ClientState;
+import dev.kevinh.secproj.tools.Render3d;
 import dev.kevinh.secproj.tools.TimedQueue;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.option.KeyBinding;
@@ -47,6 +49,11 @@ public class SecurityProjectClient implements ClientModInitializer {
     HudRenderCallback.EVENT.register((context, tickDeltaManager) -> {
       fetchRenderTickEvents(context, tickDeltaManager);
       Overlay.renderOverlay(context, tickDeltaManager, clickQueue);
+    });
+
+    // draw 3d shi
+    WorldRenderEvents.AFTER_TRANSLUCENT.register(ctx -> {
+      Render3d.drawTestBox(ctx);
     });
   }
 
