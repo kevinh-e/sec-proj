@@ -48,11 +48,7 @@ public class SecurityProjectClient implements ClientModInitializer {
 
     // draw 3d overlays (has render depth test disabled)
     WorldRenderEvents.AFTER_TRANSLUCENT.register(ctx -> {
-      RenderSystem.disableDepthTest();
-
       Render3d.drawTestBox(ctx);
-
-      RenderSystem.enableDepthTest();
     });
   }
 
