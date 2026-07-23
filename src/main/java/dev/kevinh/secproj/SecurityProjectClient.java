@@ -2,6 +2,8 @@ package dev.kevinh.secproj;
 
 import org.lwjgl.glfw.GLFW;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+
 import dev.kevinh.secproj.gui.Overlay;
 import dev.kevinh.secproj.gui.SecprojMenuScreen;
 import dev.kevinh.secproj.tools.ClientOptions;
@@ -44,9 +46,13 @@ public class SecurityProjectClient implements ClientModInitializer {
       Overlay.renderOverlay(context, tickDeltaManager);
     });
 
-    // draw 3d shi
+    // draw 3d overlays (has render depth test disabled)
     WorldRenderEvents.AFTER_TRANSLUCENT.register(ctx -> {
+      RenderSystem.disableDepthTest();
+
       Render3d.drawTestBox(ctx);
+
+      RenderSystem.enableDepthTest();
     });
   }
 
