@@ -7,22 +7,18 @@ import dev.kevinh.secproj.gui.SecprojMenuScreen;
 import dev.kevinh.secproj.tools.ClientOptions;
 import dev.kevinh.secproj.tools.ClientState;
 import dev.kevinh.secproj.tools.Render3d;
-import dev.kevinh.secproj.tools.TimedQueue;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.render.RenderTickCounter;
 
 public class SecurityProjectClient implements ClientModInitializer {
   private MinecraftClient client;
 
   private static ClientOptions clientOptions = new ClientOptions();
-  public static final TimedQueue clickQueue = new TimedQueue();
   public static ClientState clientState = new ClientState();
 
   public KeyBinding OPEN_MENU_KEY;
@@ -35,8 +31,6 @@ public class SecurityProjectClient implements ClientModInitializer {
   public KeyBinding CRITICALS_TOGGLE_KEY;
   public KeyBinding MACE_TOGGLE_KEY;
 
-  private boolean leftMouseWasClicked = false;
-
   @Override
   public void onInitializeClient() {
     SecurityProject.LOGGER.info("Setting up " + SecurityProject.MOD_ID + "Client");
@@ -47,8 +41,7 @@ public class SecurityProjectClient implements ClientModInitializer {
 
     // draw shi
     HudRenderCallback.EVENT.register((context, tickDeltaManager) -> {
-      fetchRenderTickEvents(context, tickDeltaManager);
-      Overlay.renderOverlay(context, tickDeltaManager, clickQueue);
+      Overlay.renderOverlay(context, tickDeltaManager);
     });
 
     // draw 3d shi
@@ -84,15 +77,6 @@ public class SecurityProjectClient implements ClientModInitializer {
     }
     if (this.MACE_TOGGLE_KEY.wasPressed()) {
       clientOptions.setMaceEnabled(!clientOptions.isMaceEnabled());
-    }
-  }
-
-  private void fetchRenderTickEvents(DrawContext context, RenderTickCounter tickDeltaManager) {
-    if (client.mouse.wasLeftButtonClicked()) {
-      leftMouseWasClicked = true;
-    } else if (leftMouseWasClicked && !client.mouse.wasLeftButtonClicked()) {
-      clickQueue.addEventNow();
-      leftMouseWasClicked = false;
     }
   }
 

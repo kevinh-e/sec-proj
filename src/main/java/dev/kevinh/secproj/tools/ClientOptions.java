@@ -17,7 +17,6 @@ public class ClientOptions {
   private boolean maceEnabled;
   private double maceHeight;
 
-  private boolean cpsShownInOverlay;
   private boolean autoClickerShownInOverlay;
   private boolean noFallShownInOverlay;
   private boolean freecamShownInOverlay;
@@ -53,7 +52,6 @@ public class ClientOptions {
     maceEnabled = false;
     maceHeight = 10.0;
 
-    cpsShownInOverlay = true;
     autoClickerShownInOverlay = true;
     noFallShownInOverlay = true;
     freecamShownInOverlay = true;
@@ -138,14 +136,6 @@ public class ClientOptions {
 
   public void setEntityReachValue(double entityReachValue) {
     this.entityReachValue = entityReachValue;
-  }
-
-  public boolean isCpsShownInOverlay() {
-    return this.cpsShownInOverlay;
-  }
-
-  public void setCpsShownInOverlay(boolean flag) {
-    this.cpsShownInOverlay = flag;
   }
 
   public boolean isAutoClickerShownInOverlay() {

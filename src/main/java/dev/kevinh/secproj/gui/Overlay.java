@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import dev.kevinh.secproj.SecurityProjectClient;
 import dev.kevinh.secproj.tools.ClientOptions;
-import dev.kevinh.secproj.tools.TimedQueue;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -15,17 +14,13 @@ public class Overlay {
   private static final int PADDING_SIZE = 5;
   private static final int STARTING_Y = 100;
 
-  public static void renderOverlay(DrawContext context, RenderTickCounter tickDeltaManager,
-      TimedQueue clickQueue) {
+  public static void renderOverlay(DrawContext context, RenderTickCounter tickDeltaManager) {
     TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 
     ClientOptions options = SecurityProjectClient.getClientOptions();
 
     ArrayList<String> lines = new ArrayList<String>();
 
-    if (options.isCpsShownInOverlay()) {
-      lines.add("CPS " + clickQueue.size());
-    }
     if (options.isAutoClickerShownInOverlay()) {
       lines.add("AutoClicker " + (options.isAutoClickerEnabled() ? "enabled" : "disabled"));
     }
