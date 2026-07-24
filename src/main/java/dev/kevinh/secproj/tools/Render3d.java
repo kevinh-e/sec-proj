@@ -3,6 +3,7 @@ package dev.kevinh.secproj.tools;
 import java.util.OptionalDouble;
 
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexConsumer;
@@ -10,7 +11,10 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.VertexFormat.DrawMode;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 
 public class Render3d {
   public static RenderLayer MY_LINES = RenderLayer.of("SECPROJ_Render", VertexFormats.LINES, DrawMode.LINES, 1536,
@@ -31,6 +35,15 @@ public class Render3d {
     double camZ = ctx.camera().getPos().z;
 
     Box box = new Box(-camX, -camY, -camZ, -camX + 1.0, -camY + 1.0, -camZ + 1.0);
+    WorldRenderer.drawBox(ctx.matrixStack(), ctx.consumers().getBuffer(MY_LINES), box, (float) 1.0,
+        (float) 0.0,
+        (float) 1.0, (float) 1.0);
+  }
+
+  public static void drawStorageBox(WorldRenderContext ctx, BlockPos pos) {
+    Vec3d cam = ctx.camera().getPos();
+    Box box = new Box(pos).offset(cam.negate());
+
     WorldRenderer.drawBox(ctx.matrixStack(), ctx.consumers().getBuffer(MY_LINES), box, (float) 1.0,
         (float) 0.0,
         (float) 1.0, (float) 1.0);

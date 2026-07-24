@@ -9,6 +9,7 @@ import dev.kevinh.secproj.gui.SecprojMenuScreen;
 import dev.kevinh.secproj.tools.ClientOptions;
 import dev.kevinh.secproj.tools.ClientState;
 import dev.kevinh.secproj.tools.Render3d;
+import dev.kevinh.secproj.tools.WorldRender;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -48,7 +49,8 @@ public class SecurityProjectClient implements ClientModInitializer {
 
     // draw 3d overlays (has render depth test disabled)
     WorldRenderEvents.AFTER_TRANSLUCENT.register(ctx -> {
-      Render3d.drawTestBox(ctx);
+      // Render3d.drawTestBox(ctx);
+      WorldRender.highlightBlockEntities(ctx);
     });
   }
 
