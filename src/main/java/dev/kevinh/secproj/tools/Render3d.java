@@ -30,22 +30,18 @@ public class Render3d {
           .build(false));
 
   public static void drawTestBox(WorldRenderContext ctx) {
-    double camX = ctx.camera().getPos().x;
-    double camY = ctx.camera().getPos().y;
-    double camZ = ctx.camera().getPos().z;
-
-    Box box = new Box(-camX, -camY, -camZ, -camX + 1.0, -camY + 1.0, -camZ + 1.0);
-    WorldRenderer.drawBox(ctx.matrixStack(), ctx.consumers().getBuffer(MY_LINES), box, (float) 1.0,
-        (float) 0.0,
-        (float) 1.0, (float) 1.0);
+    drawStorageBox(ctx, new BlockPos(0, 0, 0), (float) 1.0, (float) 1.0, (float) 1.0);
   }
 
-  public static void drawStorageBox(WorldRenderContext ctx, BlockPos pos) {
+  public static void drawStorageBox(WorldRenderContext ctx, BlockPos pos, float red, float green, float blue) {
+    drawStorageBox(ctx, pos, red, green, blue, (float) 1.0);
+  }
+
+  public static void drawStorageBox(WorldRenderContext ctx, BlockPos pos, float red, float green, float blue,
+      float alpha) {
     Vec3d cam = ctx.camera().getPos();
     Box box = new Box(pos).offset(cam.negate());
 
-    WorldRenderer.drawBox(ctx.matrixStack(), ctx.consumers().getBuffer(MY_LINES), box, (float) 1.0,
-        (float) 0.0,
-        (float) 1.0, (float) 1.0);
+    WorldRenderer.drawBox(ctx.matrixStack(), ctx.consumers().getBuffer(MY_LINES), box, red, green, blue, alpha);
   }
 }
