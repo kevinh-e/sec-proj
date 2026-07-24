@@ -34,7 +34,7 @@ public class Render3d {
   }
 
   public static void drawStorageBox(WorldRenderContext ctx, BlockPos pos, float red, float green, float blue) {
-    drawStorageBox(ctx, pos, red, green, blue, (float) 1.0);
+    drawStorageBox(ctx, pos, red, green, blue, (float) 0.75);
   }
 
   public static void drawStorageBox(WorldRenderContext ctx, BlockPos pos, float red, float green, float blue,
