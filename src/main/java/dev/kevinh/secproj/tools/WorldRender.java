@@ -5,7 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.block.entity.EnderChestBlockEntity;
+import net.minecraft.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.block.entity.SignBlockEntity;
+import net.minecraft.block.entity.Spawner;
+import net.minecraft.block.entity.TrappedChestBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -19,7 +26,16 @@ public class WorldRender {
       BlockPos pos = entry.getKey();
       BlockEntity blockEntity = entry.getValue();
       if (blockEntity != null) {
-        Render3d.drawStorageBox(ctx, pos);
+        switch (blockEntity) {
+          case TrappedChestBlockEntity cbe -> Render3d.drawStorageBox(ctx, pos, 1.0f, 0.75f, 0.0f);
+          case ChestBlockEntity cbe -> Render3d.drawStorageBox(ctx, pos, 1.0f, 1.0f, 0.0f);
+          case ShulkerBoxBlockEntity cbe -> Render3d.drawStorageBox(ctx, pos, 0.0f, 0.8f, 0.8f);
+          case SignBlockEntity cbe -> Render3d.drawStorageBox(ctx, pos, 0.9f, 0.9f, 0.9f);
+          case AbstractFurnaceBlockEntity cbe -> Render3d.drawStorageBox(ctx, pos, 1.0f, 0.4f, 0.0f);
+          case Spawner cbe -> Render3d.drawStorageBox(ctx, pos, 0.0f, 1.0f, 0.0f);
+          case EnderChestBlockEntity cbe -> Render3d.drawStorageBox(ctx, pos, 0.6f, 0.0f, 1.0f);
+          default -> Render3d.drawStorageBox(ctx, pos, 0.5f, 0.5f, 0.5f);
+        }
       }
     }
   }
