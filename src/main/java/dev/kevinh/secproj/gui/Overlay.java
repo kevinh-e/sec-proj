@@ -55,6 +55,9 @@ public class Overlay {
         lines.add(String.format("Mace Height %.2f", options.getMaceHeight()));
       }
     }
+    if (options.isStorageEspShownInOverlay()) {
+      lines.add("StorageESP " + (options.isStorageEspEnabled() ? "enabled" : "disabled"));
+    }
 
     if (lines.isEmpty()) {
       return;

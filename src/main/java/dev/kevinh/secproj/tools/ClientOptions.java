@@ -16,6 +16,7 @@ public class ClientOptions {
   private boolean criticalsEnabled;
   private boolean maceEnabled;
   private double maceHeight;
+  private boolean storageEspEnabled;
 
   private boolean autoClickerShownInOverlay;
   private boolean noFallShownInOverlay;
@@ -27,6 +28,7 @@ public class ClientOptions {
   private boolean criticalsShownInOverlay;
   private boolean maceShownInOverlay;
   private boolean maceHeightShownInOverlay;
+  private boolean storageEspShownInOverlay;
 
   public static final double FREECAM_SPEED_MIN = 0.05;
   public static final double FREECAM_SPEED_MAX = 1.0;
@@ -51,6 +53,7 @@ public class ClientOptions {
     criticalsEnabled = false;
     maceEnabled = false;
     maceHeight = 10.0;
+    storageEspEnabled = false;
 
     autoClickerShownInOverlay = true;
     noFallShownInOverlay = true;
@@ -62,6 +65,7 @@ public class ClientOptions {
     criticalsShownInOverlay = true;
     maceShownInOverlay = true;
     maceHeightShownInOverlay = true;
+    storageEspShownInOverlay = true;
   }
 
   public void setAutoClicker(boolean flag) {
@@ -240,5 +244,21 @@ public class ClientOptions {
 
   public void setMaceHeightShownInOverlay(boolean maceHeightShownInOverlay) {
     this.maceHeightShownInOverlay = maceHeightShownInOverlay;
+  }
+
+  public boolean isStorageEspEnabled() {
+    return storageEspEnabled;
+  }
+
+  public void setStorageEspEnabled(boolean storageEspEnabled) {
+    this.storageEspEnabled = storageEspEnabled;
+  }
+
+  public boolean isStorageEspShownInOverlay() {
+    return storageEspShownInOverlay;
+  }
+
+  public void setStorageEspShownInOverlay(boolean storageEspShownInOverlay) {
+    this.storageEspShownInOverlay = storageEspShownInOverlay;
   }
 }

@@ -30,6 +30,7 @@ public class SecprojMenuScreen extends Screen {
   private static final Text REACH_TEXT = Text.translatable("gui.secproj.menu_screen.reach");
   private static final Text CRITICALS_TEXT = Text.translatable("gui.secproj.menu_screen.criticals");
   private static final Text MACE_TEXT = Text.translatable("gui.secproj.menu_screen.mace");
+  private static final Text STORAGE_ESP_TEXT = Text.translatable("gui.secproj.menu_screen.storage_esp");
 
   private static final int OPTION_WIDTH = 150;
   private static final int OVERLAY_SIZE = 20;
@@ -111,6 +112,11 @@ public class SecprojMenuScreen extends Screen {
             "%.2f",
             clientOptions::isMaceHeightShownInOverlay,
             clientOptions::setMaceHeightShownInOverlay));
+
+    addToggleFeature(adder,
+        new ToggleFeature(STORAGE_ESP_TEXT,
+            clientOptions::isStorageEspEnabled, clientOptions::setStorageEspEnabled,
+            clientOptions::isStorageEspShownInOverlay, clientOptions::setStorageEspShownInOverlay));
 
     // Build scrollable body.
     int maxBodyHeight = Math.max(100,

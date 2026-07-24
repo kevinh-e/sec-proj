@@ -33,6 +33,7 @@ public class SecurityProjectClient implements ClientModInitializer {
   public KeyBinding REACH_TOGGLE_KEY;
   public KeyBinding CRITICALS_TOGGLE_KEY;
   public KeyBinding MACE_TOGGLE_KEY;
+  public KeyBinding STORAGE_ESP_TOGGLE_KEY;
 
   @Override
   public void onInitializeClient() {
@@ -50,7 +51,9 @@ public class SecurityProjectClient implements ClientModInitializer {
     // draw 3d overlays (has render depth test disabled)
     WorldRenderEvents.AFTER_TRANSLUCENT.register(ctx -> {
       // Render3d.drawTestBox(ctx);
-      WorldRender.highlightBlockEntities(ctx);
+      if (clientOptions.isStorageEspEnabled()) {
+        WorldRender.highlightBlockEntities(ctx);
+      }
     });
   }
 
@@ -82,6 +85,9 @@ public class SecurityProjectClient implements ClientModInitializer {
     if (this.MACE_TOGGLE_KEY.wasPressed()) {
       clientOptions.setMaceEnabled(!clientOptions.isMaceEnabled());
     }
+    if (this.STORAGE_ESP_TOGGLE_KEY.wasPressed()) {
+      clientOptions.setStorageEspEnabled(!clientOptions.isStorageEspEnabled());
+    }
   }
 
   private void initializeKeymappings() {
@@ -111,6 +117,9 @@ public class SecurityProjectClient implements ClientModInitializer {
     this.MACE_TOGGLE_KEY = KeyBindingHelper
         .registerKeyBinding(
             new KeyBinding("key.secproj.mace", GLFW.GLFW_KEY_MINUS, "key.categories.secproj"));
+    this.STORAGE_ESP_TOGGLE_KEY = KeyBindingHelper
+        .registerKeyBinding(
+            new KeyBinding("key.secproj.storage_esp", GLFW.GLFW_KEY_COMMA, "key.categories.secproj"));
   }
 
   public static ClientOptions getClientOptions() {

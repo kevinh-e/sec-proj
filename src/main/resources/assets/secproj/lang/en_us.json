@@ -17,6 +17,7 @@
   "gui.secproj.menu_screen.criticals": "Criticals",
   "gui.secproj.menu_screen.mace": "Mace",
   "gui.secproj.menu_screen.mace_height": "Mace Height",
+  "gui.secproj.menu_screen.storage_esp": "Storage ESP",
   "key.secproj.menu": "Open Secproj Menu",
   "key.secproj.autoclicker": "Activate Autoclicker",
   "key.secproj.nofall": "Activate NoFall",
@@ -26,5 +27,6 @@
   "key.secproj.reach": "Activate Reach",
   "key.secproj.criticals": "Activate Criticals",
   "key.secproj.mace": "Activate Mace",
+  "key.secproj.storage_esp": "Toggle Storage ESP",
   "key.categories.secproj": "Security Project"
 }
