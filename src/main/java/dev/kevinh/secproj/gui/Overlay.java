@@ -12,7 +12,7 @@ import net.minecraft.client.render.RenderTickCounter;
 public class Overlay {
   private static final int TEXT_COLOUR = 0xFFFFFFFF;
   private static final int PADDING_SIZE = 5;
-  private static final int STARTING_Y = 100;
+  private static final int STARTING_Y = 75;
 
   public static void renderOverlay(DrawContext context, RenderTickCounter tickDeltaManager) {
     TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
