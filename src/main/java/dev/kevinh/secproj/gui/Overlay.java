@@ -67,10 +67,10 @@ public class Overlay {
     int textHeight = textRenderer.fontHeight + PADDING_SIZE;
 
     // Background
-    context.fill(5, STARTING_Y, textWidth + (lines.size() + 1) * PADDING_SIZE,
+    context.fill(5, STARTING_Y, textWidth + 2 * PADDING_SIZE + 5,
         STARTING_Y + lines.size() * (textHeight + PADDING_SIZE), 0,
         0xBF3A3632);
-    context.drawBorder(5, STARTING_Y, textWidth + lines.size() * PADDING_SIZE,
+    context.drawBorder(5, STARTING_Y, textWidth + 2 * PADDING_SIZE,
         lines.size() * (textHeight + PADDING_SIZE),
         0xBF57534E);
 
