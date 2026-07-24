@@ -35,8 +35,7 @@ public class SecprojMenuScreen extends Screen {
   private static final int OVERLAY_SIZE = 20;
   private static final int GRID_SPACING = 4;
   private static final int COLUMNS = 4;
-  private static final int SLIDER_WIDTH_SPAN = OPTION_WIDTH * 2
-      + GRID_SPACING * (COLUMNS - 1) + OVERLAY_SIZE * 2;
+  private static final int SLIDER_WIDTH_SPAN = 150;
 
   private final ThreePartsLayoutWidget layout = new ThreePartsLayoutWidget(this, 21, 35);
   private final ClientOptions clientOptions = SecurityProjectClient.getClientOptions();
